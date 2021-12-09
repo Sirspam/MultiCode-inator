@@ -39,7 +39,7 @@ namespace TheMultiCode_inator.Utils
                     }
                     else
                     {
-                        service.SendTextMessage($"! {msg.Sender.UserName}, The player currently isn't in a multiplayer lobby or they have !code disabled", msg.Channel);
+                        service.SendTextMessage($"! {msg.Sender.UserName}, The player either isn't in a multiplayer lobby or they have !multicode disabled", msg.Channel);
                     }
                 }
                 catch (Exception e)
