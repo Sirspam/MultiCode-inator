@@ -20,7 +20,7 @@ namespace TheMultiCode_inator.UI.ViewControllers
 
         [UIValue("command-enabled")]
         private bool CommandEnabled
-        { 
+        {
             get => PluginConfig.Instance.CommandEnabled;
             set => PluginConfig.Instance.CommandEnabled = value;
         }

@@ -1,5 +1,4 @@
-﻿using TheMultiCode_inator.UI.ViewControllers;
-using TheMultiCode_inator.Utils;
+﻿using TheMultiCode_inator.Utils;
 using Zenject;
 
 namespace TheMultiCode_inator.Installers

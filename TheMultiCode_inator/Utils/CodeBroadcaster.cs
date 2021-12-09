@@ -28,6 +28,7 @@ namespace TheMultiCode_inator.Utils
         {
             if (msg.Message.ToLower() == "!mc" || msg.Message.ToLower() == "!multicode")
             {
+                Plugin.Log.Info("Recieved multicode command");
                 try
                 {
                     // I wanted to have this automatically enable / disable the command if the user has server browser installed and if their lobby was on there
