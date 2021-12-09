@@ -1,5 +1,5 @@
 # [TheMultiCode-inator](https://clips.twitch.tv/WealthyHungryAppleBudStar-kwPAcoffd0CAUzdz)
-Beat Saber mod which adds a !mc command which posts the current multiplayer lobby code into your Twitch chat
+Beat Saber mod which adds a !multicode command which posts the current multiplayer lobby code into your Twitch chat
 ## Usage
 After installation the commands **!mc** and **!multicode** will be added to your twitch chat. When one of these are posted, in your Twitch chat, the code for your current multiplayer lobby will be posted
 
