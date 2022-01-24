@@ -43,9 +43,9 @@ namespace TheMultiCode_inator.Utils
                     // Couldn't think of a decent way of doing it without having to make the mod a dependency, which I don't want to do
                     // It's mainly just a QoL thing so MultiCode_inator will be fine without it
                     if (CodeManager.RoomCode != null && _pluginConfig.CommandEnabled)
-                        service.SendTextMessage($"! {msg.Sender.UserName}, The current multiplayer lobby code is {CodeManager.RoomCode}", msg.Channel);
+                        service.SendTextMessage($"!{msg.Sender.UserName}, The current multiplayer lobby code is {CodeManager.RoomCode}", msg.Channel);
                     else
-                        service.SendTextMessage($"! {msg.Sender.UserName}, The player either isn't in a multiplayer lobby or they have !multicode disabled", msg.Channel);
+                        service.SendTextMessage($"!{msg.Sender.UserName}, The player isn't in a multiplayer lobby or they have MultiCode disabled", msg.Channel);
                 }
                 catch (Exception e)
                 {
