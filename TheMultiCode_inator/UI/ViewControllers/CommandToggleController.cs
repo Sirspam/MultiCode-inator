@@ -9,31 +9,33 @@ namespace TheMultiCode_inator.UI.ViewControllers
 {
     internal class CommandToggleController : IInitializable, IDisposable
     {
-        private readonly GameplaySetupViewController gameplaySetupViewController;
-        private readonly MultiplayerSettingsPanelController multiplayerSettingsPanelController;
+        private readonly PluginConfig _pluginConfig;
+        private readonly GameplaySetupViewController _gameplaySetupViewController;
+        private readonly MultiplayerSettingsPanelController _multiplayerSettingsPanelController;
 
-        public CommandToggleController(GameplaySetupViewController gameplaySetupViewController, MultiplayerSettingsPanelController multiplayerSettingsPanelController)
+        public CommandToggleController(PluginConfig pluginConfig, GameplaySetupViewController gameplaySetupViewController, MultiplayerSettingsPanelController multiplayerSettingsPanelController)
         {
-            this.gameplaySetupViewController = gameplaySetupViewController;
-            this.multiplayerSettingsPanelController = multiplayerSettingsPanelController;
+            _pluginConfig = pluginConfig;
+            _gameplaySetupViewController = gameplaySetupViewController;
+            _multiplayerSettingsPanelController = multiplayerSettingsPanelController;
         }
 
         [UIValue("command-enabled")]
         private bool CommandEnabled
         {
-            get => PluginConfig.Instance.CommandEnabled;
-            set => PluginConfig.Instance.CommandEnabled = value;
+            get => _pluginConfig.CommandEnabled;
+            set => _pluginConfig.CommandEnabled = value;
         }
 
-        public void Initialize() => gameplaySetupViewController.didActivateEvent += GameplaySetupViewController_didActivateEvent;
+        public void Initialize() => _gameplaySetupViewController.didActivateEvent += GameplaySetupViewController_didActivateEvent;
 
-        public void Dispose() => gameplaySetupViewController.didActivateEvent -= GameplaySetupViewController_didActivateEvent;
+        public void Dispose() => _gameplaySetupViewController.didActivateEvent -= GameplaySetupViewController_didActivateEvent;
 
         private void GameplaySetupViewController_didActivateEvent(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
         {
             if (firstActivation)
             {
-                BSMLParser.instance.Parse(Utilities.GetResourceContent(Assembly.GetExecutingAssembly(), "TheMultiCode_inator.UI.Views.CommandToggle.bsml"), multiplayerSettingsPanelController.gameObject, this);
+                BSMLParser.instance.Parse(Utilities.GetResourceContent(Assembly.GetExecutingAssembly(), "TheMultiCode_inator.UI.Views.CommandToggle.bsml"), _multiplayerSettingsPanelController.gameObject, this);
             }
         }
     }
