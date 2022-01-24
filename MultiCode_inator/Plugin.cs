@@ -1,12 +1,10 @@
 ﻿using IPA;
 using IPA.Config;
-using SiraUtil.Zenject;
-using System;
-using System.Reflection;
 using IPA.Config.Stores;
-using TheMultiCode_inator.Installers;
 using IPA.Logging;
+using SiraUtil.Zenject;
 using TheMultiCode_inator.Configuration;
+using TheMultiCode_inator.Installers;
 
 namespace TheMultiCode_inator
 {

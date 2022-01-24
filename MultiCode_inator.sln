@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31829.152
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheMultiCode_inator", "TheMultiCode_inator\TheMultiCode_inator.csproj", "{2DFEC19C-242B-44C4-9CE6-5E8A0C5E6445}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiCode_inator", "MultiCode_inator\MultiCode_inator.csproj", "{2DFEC19C-242B-44C4-9CE6-5E8A0C5E6445}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

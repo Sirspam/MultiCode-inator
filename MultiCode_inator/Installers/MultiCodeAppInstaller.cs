@@ -1,6 +1,6 @@
-﻿using TheMultiCode_inator.Configuration;
+﻿using TheMultiCode_inator.AffinityPatches;
+using TheMultiCode_inator.Configuration;
 using TheMultiCode_inator.Utils;
-using TheMultiCode_inator.AffinityPatches;
 using Zenject;
 
 namespace TheMultiCode_inator.Installers

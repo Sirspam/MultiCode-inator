@@ -10,6 +10,7 @@
 		<BeatSaberDir>$(LocalRefsDir)</BeatSaberDir>
 		<AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
 		<DebugType>portable</DebugType>
+		<RootNamespace>TheMultiCode_inator</RootNamespace>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(DefineConstants.Contains('CIBuild')) OR '$(NCrunch)' == '1'">

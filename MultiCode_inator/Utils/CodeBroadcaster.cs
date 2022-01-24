@@ -1,6 +1,6 @@
-﻿using ChatCore;
+﻿using System;
+using ChatCore;
 using ChatCore.Interfaces;
-using System;
 using SiraUtil.Logging;
 using TheMultiCode_inator.Configuration;
 using Zenject;
@@ -36,20 +36,16 @@ namespace TheMultiCode_inator.Utils
         {
             if (msg.Message.ToLower() == "!mc" || msg.Message.ToLower() == "!multicode")
             {
-                _siraLog.Info("Recieved multicode command");
+                _siraLog.Info("Received multicode command");
                 try
                 {
                     // I wanted to have this automatically enable / disable the command if the user has server browser installed and if their lobby was on there
                     // Couldn't think of a decent way of doing it without having to make the mod a dependency, which I don't want to do
-                    // It's mainly just a QoL thing so MultiCode-inator will be fine without it
+                    // It's mainly just a QoL thing so MultiCode_inator will be fine without it
                     if (CodeManager.RoomCode != null && _pluginConfig.CommandEnabled)
-                    {
                         service.SendTextMessage($"! {msg.Sender.UserName}, The current multiplayer lobby code is {CodeManager.RoomCode}", msg.Channel);
-                    }
                     else
-                    {
                         service.SendTextMessage($"! {msg.Sender.UserName}, The player either isn't in a multiplayer lobby or they have !multicode disabled", msg.Channel);
-                    }
                 }
                 catch (Exception e)
                 {

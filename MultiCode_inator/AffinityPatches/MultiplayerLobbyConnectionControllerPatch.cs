@@ -1,5 +1,4 @@
-﻿using System;
-using SiraUtil.Affinity;
+﻿using SiraUtil.Affinity;
 using TheMultiCode_inator.Utils;
 
 namespace TheMultiCode_inator.AffinityPatches
