@@ -1,7 +1,7 @@
 ﻿using SiraUtil.Affinity;
-using TheMultiCode_inator.Utils;
+using MultiCode_inator.Utils;
 
-namespace TheMultiCode_inator.AffinityPatches
+namespace MultiCode_inator.AffinityPatches
 {
     internal class MultiplayerLobbyConnectionControllerPatch : IAffinity
     {

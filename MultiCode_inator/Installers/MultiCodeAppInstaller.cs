@@ -1,9 +1,9 @@
-﻿using TheMultiCode_inator.AffinityPatches;
-using TheMultiCode_inator.Configuration;
-using TheMultiCode_inator.Utils;
+﻿using MultiCode_inator.AffinityPatches;
+using MultiCode_inator.Configuration;
+using MultiCode_inator.Utils;
 using Zenject;
 
-namespace TheMultiCode_inator.Installers
+namespace MultiCode_inator.Installers
 {
     internal class MultiCodeAppInstaller : Installer
     {
@@ -19,7 +19,6 @@ namespace TheMultiCode_inator.Installers
             Container.BindInstance(_pluginConfig).AsSingle();
             Container.BindInterfacesTo<CodeBroadcaster>().AsSingle();
             Container.BindInterfacesTo<MultiplayerLobbyConnectionControllerPatch>().AsSingle();
-            Container.BindInterfacesTo<MultiplayerSettingsPanelControllerPatch>().AsSingle();
         }
     }
 }

@@ -10,7 +10,7 @@
 		<BeatSaberDir>$(LocalRefsDir)</BeatSaberDir>
 		<AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
 		<DebugType>portable</DebugType>
-		<RootNamespace>TheMultiCode_inator</RootNamespace>
+		<RootNamespace>MultiCode_inator</RootNamespace>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(DefineConstants.Contains('CIBuild')) OR '$(NCrunch)' == '1'">
@@ -80,7 +80,7 @@
 	<ItemGroup>
 		<None Include="Directory.Build.props" Condition="Exists('Directory.Build.props')" />
 		<None Include="Directory.Build.targets" Condition="Exists('Directory.Build.targets')" />
-		<None Include="TheMultiCode_inator.csproj.user" Condition="Exists('TheMultiCode_inator.csproj.user')" />
+		<None Include="MultiCode_inator.csproj.user" Condition="Exists('MultiCode_inator.csproj.user')" />
 	</ItemGroup>
 	
 	<ItemGroup>

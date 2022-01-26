@@ -1,11 +1,11 @@
 ﻿using System;
 using ChatCore;
 using ChatCore.Interfaces;
+using MultiCode_inator.Configuration;
 using SiraUtil.Logging;
-using TheMultiCode_inator.Configuration;
 using Zenject;
 
-namespace TheMultiCode_inator.Utils
+namespace MultiCode_inator.Utils
 {
     internal class CodeBroadcaster : IInitializable, IDisposable
     {

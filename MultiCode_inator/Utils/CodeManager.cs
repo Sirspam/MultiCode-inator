@@ -1,4 +1,4 @@
-﻿namespace TheMultiCode_inator.Utils
+﻿namespace MultiCode_inator.Utils
 {
     public static class CodeManager
     {

@@ -1,13 +1,15 @@
-﻿using TheMultiCode_inator.UI.ViewControllers;
+﻿using MultiCode_inator.AffinityPatches;
+using MultiCode_inator.UI.ViewControllers;
 using Zenject;
 
-namespace TheMultiCode_inator.Installers
+namespace MultiCode_inator.Installers
 {
     internal class MultiCodeMenuInstaller : Installer
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<CommandToggleController>().AsSingle();
+            Container.BindInterfacesTo<CommandToggleController>().AsSingle();
+            Container.BindInterfacesTo<MultiplayerSettingsPanelControllerPatch>().AsSingle();
         }
     }
 }

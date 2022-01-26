@@ -1,7 +1,7 @@
 ﻿{
   "$schema": "https://raw.githubusercontent.com/bsmg/BSIPA-MetadataFileSchema/master/Schema.json",
-  "id": "TheMultiCode_inator",
-  "name": "TheMultiCode-inator",
+  "id": "MultiCode_inator",
+  "name": "MultiCode-inator",
   "author": "Sirspam",
   "version": "1.0.1",
   "description": "Beat Saber mod which adds a !mc command to post the current multiplayer lobby code in your Twitch chat",

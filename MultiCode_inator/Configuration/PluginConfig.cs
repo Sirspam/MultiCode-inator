@@ -3,7 +3,7 @@ using IPA.Config.Stores;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
 
-namespace TheMultiCode_inator.Configuration
+namespace MultiCode_inator.Configuration
 {
     internal class PluginConfig
     {

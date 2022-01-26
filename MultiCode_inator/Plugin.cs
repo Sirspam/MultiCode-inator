@@ -2,11 +2,11 @@
 using IPA.Config;
 using IPA.Config.Stores;
 using IPA.Logging;
+using MultiCode_inator.Configuration;
+using MultiCode_inator.Installers;
 using SiraUtil.Zenject;
-using TheMultiCode_inator.Configuration;
-using TheMultiCode_inator.Installers;
 
-namespace TheMultiCode_inator
+namespace MultiCode_inator
 {
     [Plugin(RuntimeOptions.DynamicInit)][NoEnableDisable]
     public class Plugin

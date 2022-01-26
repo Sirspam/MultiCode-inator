@@ -1,7 +1,7 @@
-﻿using SiraUtil.Affinity;
-using TheMultiCode_inator.Utils;
+﻿using MultiCode_inator.Utils;
+using SiraUtil.Affinity;
 
-namespace TheMultiCode_inator.AffinityPatches
+namespace MultiCode_inator.AffinityPatches
 {
     // Could've gotten the code via BGNet but I'm not certain if BeatTogether changes it in some way
     // This method is probably safer
