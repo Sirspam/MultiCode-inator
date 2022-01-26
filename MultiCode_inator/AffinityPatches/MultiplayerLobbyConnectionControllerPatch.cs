@@ -7,7 +7,7 @@ namespace MultiCode_inator.AffinityPatches
     {
         [AffinityPostfix]
         [AffinityPatch(typeof(MultiplayerLobbyConnectionController), nameof(MultiplayerLobbyConnectionController.LeaveLobby))]
-        private void Postfix()
+        private void Patch()
         {
             CodeManager.RoomCode = null;
         }

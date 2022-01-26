@@ -2,6 +2,6 @@
 {
     public static class CodeManager
     {
-        public static string RoomCode { get; set; }
+        public static string? RoomCode { get; set; }
     }
 }

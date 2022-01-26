@@ -2,7 +2,6 @@
 using System.Reflection;
 using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
-using SiraUtil.Logging;
 using MultiCode_inator.Configuration;
 using Zenject;
 
@@ -10,14 +9,12 @@ namespace MultiCode_inator.UI.ViewControllers
 {
     internal class CommandToggleController : IInitializable, IDisposable
     {
-        private readonly SiraLog _siraLog;
         private readonly PluginConfig _pluginConfig;
         private readonly GameplaySetupViewController _gameplaySetupViewController;
         private readonly MultiplayerSettingsPanelController _multiplayerSettingsPanelController;
 
-        public CommandToggleController(SiraLog siraLog, PluginConfig pluginConfig, GameplaySetupViewController gameplaySetupViewController, MultiplayerSettingsPanelController multiplayerSettingsPanelController)
+        public CommandToggleController(PluginConfig pluginConfig, GameplaySetupViewController gameplaySetupViewController, MultiplayerSettingsPanelController multiplayerSettingsPanelController)
         {
-            _siraLog = siraLog;
             _pluginConfig = pluginConfig;
             _gameplaySetupViewController = gameplaySetupViewController;
             _multiplayerSettingsPanelController = multiplayerSettingsPanelController;

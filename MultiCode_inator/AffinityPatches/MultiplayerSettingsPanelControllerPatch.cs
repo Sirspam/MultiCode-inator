@@ -10,7 +10,7 @@ namespace MultiCode_inator.AffinityPatches
     {
         [AffinityPostfix]
         [AffinityPatch(typeof(MultiplayerSettingsPanelController), nameof(MultiplayerSettingsPanelController.SetLobbyCode))]
-        private void Postfix(string code)
+        private void Patch(string? code)
         {
             CodeManager.RoomCode = code;
         }

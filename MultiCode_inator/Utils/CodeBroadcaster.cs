@@ -12,7 +12,7 @@ namespace MultiCode_inator.Utils
         private readonly SiraLog _siraLog;
         private readonly PluginConfig _pluginConfig;
         private readonly ChatCoreInstance _chatCoreInstance = ChatCoreInstance.Create();
-        private IChatService _chatService;
+        private IChatService? _chatService;
 
         public CodeBroadcaster(SiraLog siraLog, PluginConfig pluginConfig)
         {
@@ -28,7 +28,10 @@ namespace MultiCode_inator.Utils
 
         public void Dispose()
         {
-            if (_chatService != null) _chatService.OnTextMessageReceived -= ChatService_OnTextMessageReceived;
+            if (_chatService != null)
+            {
+                _chatService.OnTextMessageReceived -= ChatService_OnTextMessageReceived;
+            }
             _chatCoreInstance.StopAllServices();
         }
 
@@ -36,7 +39,7 @@ namespace MultiCode_inator.Utils
         {
             if (msg.Message.ToLower() == "!mc" || msg.Message.ToLower() == "!multicode")
             {
-                _siraLog.Info("Received multicode command");
+                _siraLog.Info("Received MultiCode command");
                 try
                 {
                     // I wanted to have this automatically enable / disable the command if the user has server browser installed and if their lobby was on there
