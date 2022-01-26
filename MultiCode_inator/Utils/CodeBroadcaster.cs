@@ -28,10 +28,7 @@ namespace MultiCode_inator.Utils
 
         public void Dispose()
         {
-            if (_chatService != null)
-            {
-                _chatService.OnTextMessageReceived -= ChatService_OnTextMessageReceived;
-            }
+            if (_chatService != null) _chatService.OnTextMessageReceived -= ChatService_OnTextMessageReceived;
             _chatCoreInstance.StopAllServices();
         }
 

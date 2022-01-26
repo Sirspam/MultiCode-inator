@@ -39,10 +39,7 @@ namespace MultiCode_inator.UI.ViewControllers
 
         private void GameplaySetupViewController_didActivateEvent(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
         {
-            if (firstActivation)
-            {
-                BSMLParser.instance.Parse(Utilities.GetResourceContent(Assembly.GetExecutingAssembly(), "MultiCode_inator.UI.Views.CommandToggle.bsml"), _multiplayerSettingsPanelController.gameObject, this);
-            }
+            if (firstActivation) BSMLParser.instance.Parse(Utilities.GetResourceContent(Assembly.GetExecutingAssembly(), "MultiCode_inator.UI.Views.CommandToggle.bsml"), _multiplayerSettingsPanelController.gameObject, this);
         }
     }
 }
