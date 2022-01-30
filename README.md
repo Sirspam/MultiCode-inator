@@ -9,4 +9,4 @@ Download the latest version of MultiCode-inator from [releases](https://github.c
 
 MultiCode-inator requires BSML, SiraUtil and ChatCore, which can be found in ModAssistant.
 ## Contribution
-Feel free to point out any suggestions or improvements to me by submitting a PR or contacting me on discord ([Sirspam#7765](https://discordapp.com/users/232574143818760192)).
+Feel free to point out any suggestions or improvements to me by submitting a PR or contacting me on Discord ([Sirspam#7765](https://discordapp.com/users/232574143818760192)).
