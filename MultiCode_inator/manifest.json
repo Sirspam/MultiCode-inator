@@ -10,6 +10,6 @@
     "BSIPA": "^4.2.1",
     "BeatSaberMarkupLanguage": "^1.6.1",
     "SiraUtil": "^3.0.3",
-    "ChatCore": "^2.1.0"
+    "CatCore": "^0.0.1-alpha"
   }
 }

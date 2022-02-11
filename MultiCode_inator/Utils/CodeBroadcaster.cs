@@ -1,6 +1,6 @@
 ﻿using System;
-using ChatCore;
-using ChatCore.Interfaces;
+using CatCore;
+using CatCore.Services.Multiplexer;
 using MultiCode_inator.Configuration;
 using SiraUtil.Logging;
 using Zenject;
@@ -11,41 +11,43 @@ namespace MultiCode_inator.Utils
     {
         private readonly SiraLog _siraLog;
         private readonly PluginConfig _pluginConfig;
-        private readonly ChatCoreInstance _chatCoreInstance = ChatCoreInstance.Create();
-        private IChatService? _chatService;
+        private readonly CatCoreInstance _catCoreInstance;
+        private ChatServiceMultiplexer? _chatServiceMultiplexer;
 
         public CodeBroadcaster(SiraLog siraLog, PluginConfig pluginConfig)
         {
             _siraLog = siraLog;
             _pluginConfig = pluginConfig;
+            _catCoreInstance = CatCoreInstance.Create();
         }
         
         public void Initialize()
         {
-            _chatService = _chatCoreInstance.RunAllServices();
-            _chatService.OnTextMessageReceived += ChatService_OnTextMessageReceived;
+            _chatServiceMultiplexer = _catCoreInstance.RunAllServices();
+            _chatServiceMultiplexer!.OnTextMessageReceived += CatService_OnTextMessageReceived;
         }
 
         public void Dispose()
         {
-            if (_chatService != null) _chatService.OnTextMessageReceived -= ChatService_OnTextMessageReceived;
-            _chatCoreInstance.StopAllServices();
+            if (_chatServiceMultiplexer != null)
+            {
+                _chatServiceMultiplexer!.OnTextMessageReceived -= CatService_OnTextMessageReceived;
+                _chatServiceMultiplexer = null;
+            }
+            _catCoreInstance.StopAllServices();
         }
 
-        private void ChatService_OnTextMessageReceived(IChatService service, IChatMessage msg)
+        private void CatService_OnTextMessageReceived(MultiplexedPlatformService service, MultiplexedMessage message)
         {
-            if (msg.Message.ToLower() == "!mc" || msg.Message.ToLower() == "!multicode")
+            if (message.Message.ToLower() == "!mc" || message.Message.ToLower() == "!multicode")
             {
                 _siraLog.Info("Received MultiCode command");
                 try
                 {
-                    // I wanted to have this automatically enable / disable the command if the user has server browser installed and if their lobby was on there
-                    // Couldn't think of a decent way of doing it without having to make the mod a dependency, which I don't want to do
-                    // It's mainly just a QoL thing so MultiCode_inator will be fine without it
                     if (CodeManager.RoomCode != null && _pluginConfig.CommandEnabled)
-                        service.SendTextMessage($"!{msg.Sender.UserName}, The current multiplayer lobby code is {CodeManager.RoomCode}", msg.Channel);
+                        message.Channel.SendMessage($"! {message.Sender.UserName}, The current multiplayer lobby code is {CodeManager.RoomCode}");
                     else
-                        service.SendTextMessage($"!{msg.Sender.UserName}, The player isn't in a multiplayer lobby or they have MultiCode disabled", msg.Channel);
+                        message.Channel.SendMessage($"! {message.Sender.UserName}, The player isn't in a multiplayer lobby or they have MultiCode disabled");
                 }
                 catch (Exception e)
                 {

@@ -16,8 +16,7 @@ namespace MultiCode_inator
         {
             zenjector.UseLogger(logger);
             
-            var config = conf.Generated<PluginConfig>();
-            zenjector.Install<MultiCodeAppInstaller>(Location.App, config);
+            zenjector.Install<MultiCodeAppInstaller>(Location.App, conf.Generated<PluginConfig>());
             zenjector.Install<MultiCodeMenuInstaller>(Location.Menu);
         }
     }
