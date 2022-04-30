@@ -6,7 +6,7 @@ After installation the commands **!multicode** and **!mc** will be added to your
 There is a toggle in the multiplayer setup panel which can be used to enable and disable the command.
 ![MultiplayerSettings.png](MultiplayerSettings.png)
 ## Installation
-[Install](https://bsmg.wiki/pc-modding.html#install-mods) the latest version of MultiCode-inator from [releases](https://github.com/Sirspam/MultiCode-inator/releases/latest) and the listed dependencies below.
+[Install](https://bsmg.wiki/pc-modding.html#install-mods) both the latest version of MultiCode-inator in [releases](https://github.com/Sirspam/MultiCode-inator/releases/latest) and the listed dependencies below.
 ### Dependencies
 * [CatCore](https://github.com/ErisApps/CatCore)
 * [SiraUtil](https://github.com/Auros/SiraUtil) _- Available in ModAssistant_
