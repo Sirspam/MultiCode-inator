@@ -47,7 +47,7 @@ namespace MultiCode_inator.Utils
                     if (CodeManager.RoomCode != null && _pluginConfig.CommandEnabled)
                         message.Channel.SendMessage($"! {message.Sender.UserName}, The current multiplayer lobby code is {CodeManager.RoomCode}");
                     else
-                        message.Channel.SendMessage($"! {message.Sender.UserName}, The player isn't in a multiplayer lobby or they have MultiCode disabled");
+                        message.Channel.SendMessage($"! {message.Sender.UserName}, The streamer has MultiCode disabled or they aren't playing multiplayer");
                 }
                 catch (Exception e)
                 {
