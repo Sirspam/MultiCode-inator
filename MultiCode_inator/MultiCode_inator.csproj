@@ -32,7 +32,7 @@
 		  <HintPath>$(BeatSaberDir)\Libs\0Harmony.dll</HintPath>
 		  <Private>False</Private>
 		</Reference>
-		<Reference Include="CatCore, Version=0.0.1.0, Culture=neutral, PublicKeyToken=null">
+		<Reference Include="CatCore">
 		  <HintPath>$(BeatSaberDir)\Libs\CatCore.dll</HintPath>
 		</Reference>
 		<Reference Include="UnityEngine.CoreModule">
