@@ -1,9 +1,7 @@
-﻿using IPA.Loader;
-using IPA.Logging;
+﻿using IPA.Logging;
 using MultiCode_inator.AffinityPatches;
 using MultiCode_inator.Configuration;
 using MultiCode_inator.Utils;
-using SiraUtil.Logging;
 using Zenject;
 
 namespace MultiCode_inator.Installers

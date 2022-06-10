@@ -1,7 +1,6 @@
 ﻿using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
-using IPA.Loader;
 using IPA.Logging;
 using MultiCode_inator.Configuration;
 using MultiCode_inator.Installers;

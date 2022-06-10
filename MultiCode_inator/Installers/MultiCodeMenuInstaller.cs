@@ -1,5 +1,4 @@
-﻿using MultiCode_inator.AffinityPatches;
-using MultiCode_inator.UI.ViewControllers;
+﻿using MultiCode_inator.UI.ViewControllers;
 using Zenject;
 
 namespace MultiCode_inator.Installers
