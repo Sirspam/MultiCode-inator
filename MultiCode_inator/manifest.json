@@ -3,13 +3,16 @@
   "id": "MultiCode_inator",
   "name": "MultiCode-inator",
   "author": "Sirspam",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Beat Saber mod which adds a !mc command to post the current multiplayer lobby code in your Twitch chat",
   "gameVersion": "1.21.0",
   "dependsOn": {
     "BSIPA": "^4.2.2",
     "BeatSaberMarkupLanguage": "^1.6.3",
-    "SiraUtil": "^3.0.6",
-    "CatCore": "^1.0.0"
-  }
+    "SiraUtil": "^3.0.6"
+  },
+  "loadAfter": [
+    "CatCore",
+    "BeatSaberPlusCORE"
+  ]
 }

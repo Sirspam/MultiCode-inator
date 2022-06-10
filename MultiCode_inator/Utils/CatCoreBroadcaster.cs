@@ -7,14 +7,14 @@ using Zenject;
 
 namespace MultiCode_inator.Utils
 {
-    internal class CodeBroadcaster : IInitializable, IDisposable
+    internal class CatCoreBroadcaster : IInitializable, IDisposable
     {
         private readonly SiraLog _siraLog;
         private readonly PluginConfig _pluginConfig;
         private readonly CatCoreInstance _catCoreInstance;
         private ChatServiceMultiplexer? _chatServiceMultiplexer;
 
-        public CodeBroadcaster(SiraLog siraLog, PluginConfig pluginConfig)
+        public CatCoreBroadcaster(SiraLog siraLog, PluginConfig pluginConfig)
         {
             _siraLog = siraLog;
             _pluginConfig = pluginConfig;
@@ -44,10 +44,14 @@ namespace MultiCode_inator.Utils
                 _siraLog.Info("Received MultiCode command");
                 try
                 {
-                    if (CodeManager.RoomCode != null && _pluginConfig.CommandEnabled)
-                        message.Channel.SendMessage($"! {message.Sender.UserName}, The current multiplayer lobby code is {CodeManager.RoomCode}");
+                    if (StaticFields.RoomCode != null && _pluginConfig.CommandEnabled)
+                    {
+                        message.Channel.SendMessage($"! {message.Sender.UserName}, The current multiplayer lobby code is {StaticFields.RoomCode}");
+                    }
                     else
+                    {
                         message.Channel.SendMessage($"! {message.Sender.UserName}, The streamer has MultiCode disabled or they aren't playing multiplayer");
+                    }
                 }
                 catch (Exception e)
                 {

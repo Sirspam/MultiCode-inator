@@ -12,7 +12,7 @@ namespace MultiCode_inator.AffinityPatches
         [AffinityPatch(typeof(MultiplayerSettingsPanelController), nameof(MultiplayerSettingsPanelController.SetLobbyCode))]
         private void Patch(string? code)
         {
-            CodeManager.RoomCode = code;
+            StaticFields.RoomCode = code;
         }
     }
 }

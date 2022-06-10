@@ -1,1 +1,0 @@
-﻿<toggle-setting value="command-enabled" text="Enable MultiCode Command" apply-on-change="true" bind-value="true"/>

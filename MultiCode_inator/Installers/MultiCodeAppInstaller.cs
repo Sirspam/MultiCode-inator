@@ -1,24 +1,41 @@
-﻿using MultiCode_inator.AffinityPatches;
+﻿using IPA.Loader;
+using IPA.Logging;
+using MultiCode_inator.AffinityPatches;
 using MultiCode_inator.Configuration;
 using MultiCode_inator.Utils;
+using SiraUtil.Logging;
 using Zenject;
 
 namespace MultiCode_inator.Installers
 {
     internal class MultiCodeAppInstaller : Installer
     {
+        private readonly Logger _logger;
         private readonly PluginConfig _pluginConfig;
 
-        public MultiCodeAppInstaller(PluginConfig pluginConfig)
+        public MultiCodeAppInstaller(Logger logger, PluginConfig pluginConfig)
         {
+            _logger = logger;
             _pluginConfig = pluginConfig;
         }
         
         public override void InstallBindings()
         {
             Container.BindInstance(_pluginConfig).AsSingle();
-            Container.BindInterfacesTo<CodeBroadcaster>().AsSingle();
-            Container.BindInterfacesTo<MultiplayerLobbyConnectionControllerPatch>().AsSingle();
+            if (StaticFields.CatCoreInstalled)
+            {
+                Container.BindInterfacesTo<CatCoreBroadcaster>().AsSingle();
+                Container.BindInterfacesTo<MultiplayerLobbyConnectionControllerPatch>().AsSingle();
+            }
+            else if (StaticFields.BeatSaberPlusInstalled)
+            {
+                Container.BindInterfacesTo<BspBroadcaster>().AsSingle();
+                Container.BindInterfacesTo<MultiplayerLobbyConnectionControllerPatch>().AsSingle();
+            }
+            else
+            {
+                _logger.Warn(StaticFields.NoDependenciesMessage);
+            }
         }
     }
 }

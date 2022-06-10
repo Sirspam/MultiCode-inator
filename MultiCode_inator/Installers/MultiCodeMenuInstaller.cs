@@ -8,8 +8,7 @@ namespace MultiCode_inator.Installers
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesTo<CommandToggleController>().AsSingle();
-            Container.BindInterfacesTo<MultiplayerSettingsPanelControllerPatch>().AsSingle();
+            Container.BindInterfacesTo<CommandToggleViewController>().AsSingle();
         }
     }
 }

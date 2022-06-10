@@ -1,6 +1,7 @@
 ﻿using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
+using IPA.Loader;
 using IPA.Logging;
 using MultiCode_inator.Configuration;
 using MultiCode_inator.Installers;
@@ -15,8 +16,7 @@ namespace MultiCode_inator
         public Plugin(Config conf, Logger logger, Zenjector zenjector)
         {
             zenjector.UseLogger(logger);
-            
-            zenjector.Install<MultiCodeAppInstaller>(Location.App, conf.Generated<PluginConfig>());
+            zenjector.Install<MultiCodeAppInstaller>(Location.App, logger, conf.Generated<PluginConfig>());
             zenjector.Install<MultiCodeMenuInstaller>(Location.Menu);
         }
     }
