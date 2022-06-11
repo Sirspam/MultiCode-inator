@@ -52,6 +52,7 @@ namespace MultiCode_inator.Utils
                     {
                         message.Channel.SendMessage($"! {message.Sender.UserName}, The streamer has MultiCode disabled or they aren't playing multiplayer");
                     }
+                    _siraLog.Info("Successfully responded");
                 }
                 catch (Exception e)
                 {

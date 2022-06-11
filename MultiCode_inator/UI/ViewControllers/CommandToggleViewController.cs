@@ -45,7 +45,7 @@ namespace MultiCode_inator.UI.ViewControllers
             if (firstActivation)
             {
                 BSMLParser.instance.Parse("<toggle-setting value=\"command-enabled\" text=\"Enable MultiCode Command\" interactable=\"~dependency-installed\" apply-on-change=\"true\" bind-value=\"true\"/>", _multiplayerSettingsPanelController.gameObject, this);
-                if (!DependencyInstalled)
+                if (!DependencyInstalled) // Text is a teeny bit jank, not too much of an issue and I can't be bothered to try and fix it
                 {
                     BSMLParser.instance.Parse($"<text text=\"{StaticFields.NoDependenciesMessage}\" font-align=\"Center\" color=\"red\"/>", _multiplayerSettingsPanelController.gameObject, this);
                 }

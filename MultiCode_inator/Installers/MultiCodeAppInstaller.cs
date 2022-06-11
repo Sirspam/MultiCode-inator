@@ -20,14 +20,19 @@ namespace MultiCode_inator.Installers
         public override void InstallBindings()
         {
             Container.BindInstance(_pluginConfig).AsSingle();
-            if (StaticFields.CatCoreInstalled)
+            
+            if (StaticFields.PluginEnabled)
             {
-                Container.BindInterfacesTo<CatCoreBroadcaster>().AsSingle();
-                Container.BindInterfacesTo<MultiplayerLobbyConnectionControllerPatch>().AsSingle();
-            }
-            else if (StaticFields.BeatSaberPlusInstalled)
-            {
-                Container.BindInterfacesTo<BspBroadcaster>().AsSingle();
+                if (StaticFields.CatCoreInstalled)
+                {
+                    Container.BindInterfacesTo<CatCoreBroadcaster>().AsSingle();
+                }
+                else if (StaticFields.BeatSaberPlusInstalled)
+                {
+                    Container.BindInterfacesTo<BspBroadcaster>().AsSingle();
+                }
+                
+                Container.BindInterfacesTo<MultiplayerSettingsPanelControllerPatch>().AsSingle();
                 Container.BindInterfacesTo<MultiplayerLobbyConnectionControllerPatch>().AsSingle();
             }
             else
