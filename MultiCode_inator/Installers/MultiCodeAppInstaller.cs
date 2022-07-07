@@ -21,7 +21,7 @@ namespace MultiCode_inator.Installers
         {
             Container.BindInstance(_pluginConfig).AsSingle();
             
-            if (StaticFields.PluginEnabled)
+            if (StaticFields.DependencyInstalled)
             {
                 if (StaticFields.CatCoreInstalled)
                 {
