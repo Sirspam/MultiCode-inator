@@ -12,7 +12,7 @@ namespace MultiCode_inator.Utils
         private readonly SiraLog _siraLog;
         private readonly PluginConfig _pluginConfig;
         private readonly CatCoreInstance _catCoreInstance;
-        private ChatServiceMultiplexer? _chatServiceMultiplexer;
+        private object? _chatServiceMultiplexer;
 
         public CatCoreBroadcaster(SiraLog siraLog, PluginConfig pluginConfig)
         {
@@ -20,19 +20,33 @@ namespace MultiCode_inator.Utils
             _pluginConfig = pluginConfig;
             _catCoreInstance = CatCoreInstance.Create();
         }
+
+        private ChatServiceMultiplexer? CastedChatServiceMultiplexer
+        {
+            get
+            {
+                if (_chatServiceMultiplexer == null)
+                {
+                    return null;
+                }
+
+                return (ChatServiceMultiplexer) _chatServiceMultiplexer;
+            }
+            set => _chatServiceMultiplexer = value;
+        }
         
         public void Initialize()
         {
-            _chatServiceMultiplexer = _catCoreInstance.RunAllServices();
-            _chatServiceMultiplexer!.OnTextMessageReceived += CatService_OnTextMessageReceived;
+            CastedChatServiceMultiplexer = _catCoreInstance.RunAllServices();
+            CastedChatServiceMultiplexer!.OnTextMessageReceived += CatService_OnTextMessageReceived;
         }
 
         public void Dispose()
         {
-            if (_chatServiceMultiplexer != null)
+            if (CastedChatServiceMultiplexer != null)
             {
-                _chatServiceMultiplexer!.OnTextMessageReceived -= CatService_OnTextMessageReceived;
-                _chatServiceMultiplexer = null;
+                CastedChatServiceMultiplexer!.OnTextMessageReceived -= CatService_OnTextMessageReceived;
+                CastedChatServiceMultiplexer = null;
             }
             _catCoreInstance.StopAllServices();
         }
