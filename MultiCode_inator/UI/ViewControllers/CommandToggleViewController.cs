@@ -39,7 +39,7 @@ namespace MultiCode_inator.UI.ViewControllers
         }
 
         [UIValue("size-delta-y")] 
-        private int ModalSizeDeltaY => DependencyInstalled ? 34 : 56;
+        private int ModalSizeDeltaY => DependencyInstalled ? 34 : 54;
         
         [UIValue("modal-pref-height")] 
         private int ModalPrefHeight => ModalSizeDeltaY - 5;

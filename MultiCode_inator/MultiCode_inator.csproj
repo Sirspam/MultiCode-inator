@@ -11,7 +11,7 @@
         <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
         <DebugType>portable</DebugType>
         <RootNamespace>MultiCode_inator</RootNamespace>
-        <Configurations>Debug;Release;CatCore Debug;Bsp Debug</Configurations>
+        <Configurations>Debug;Release;CatCore Debug;Bsp Debug;No Dependencies Debug</Configurations>
         <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 

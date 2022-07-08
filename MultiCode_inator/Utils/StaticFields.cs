@@ -12,6 +12,9 @@ namespace MultiCode_inator.Utils
         {
             get
             {
+#if NO_DEPENDENCIES_DEBUG
+	            return false;
+#endif
 #if BSP_DEBUG
                 return false;   
 #endif
@@ -24,6 +27,9 @@ namespace MultiCode_inator.Utils
         {
             get
             {
+#if NO_DEPENDENCIES_DEBUG
+                return false;
+#endif
 #if CATCORE_DEBUG
                 return false;          
 #endif
