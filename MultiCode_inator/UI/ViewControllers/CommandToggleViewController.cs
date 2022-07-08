@@ -1,22 +1,33 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Reflection;
 using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Parser;
 using HMUI;
+using IPA.Loader;
 using IPA.Utilities;
 using MultiCode_inator.Configuration;
 using MultiCode_inator.Utils;
+using SiraUtil.Logging;
+using SiraUtil.Web.SiraSync;
+using SiraUtil.Zenject;
+using TMPro;
+using Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+using Component = UnityEngine.Component;
 using Object = UnityEngine.Object;
 
 namespace MultiCode_inator.UI.ViewControllers
 {
-    internal class CommandToggleViewController : IInitializable, IDisposable
+    internal class CommandToggleViewController : IInitializable, IDisposable, INotifyPropertyChanged
     {
         private bool _parsed;
+        private bool _updateAvailable;
+
+        public event PropertyChangedEventHandler? PropertyChanged;
         
         private Button? _multiCodeButton;
         private Button? _serverCodeButton;
@@ -24,16 +35,25 @@ namespace MultiCode_inator.UI.ViewControllers
 
         [UIParams] 
         private readonly BSMLParserParams _parserParams = null!;
-
-        private readonly UIUtils _uiUtils;
+        
+        [UIComponent("update-text")] 
+        private readonly TextMeshProUGUI _updateText = null!;
+        
+        private readonly SiraLog _siraLog;
         private readonly PluginConfig _pluginConfig;
+        private readonly PluginMetadata _pluginMetadata;
+        private readonly ISiraSyncService _siraSyncService;
+        private readonly TimeTweeningManager _timeTweeningManager;
         private readonly GameplaySetupViewController _gameplaySetupViewController;
         private readonly MultiplayerSettingsPanelController _multiplayerSettingsPanelController;
 
-        public CommandToggleViewController(UIUtils uiUtils, PluginConfig pluginConfig, GameplaySetupViewController gameplaySetupViewController, MultiplayerSettingsPanelController multiplayerSettingsPanelController)
+        public CommandToggleViewController(SiraLog siraLog, PluginConfig pluginConfig, UBinder<Plugin, PluginMetadata> pluginMetadata, ISiraSyncService siraSyncService, TimeTweeningManager timeTweeningManager, GameplaySetupViewController gameplaySetupViewController, MultiplayerSettingsPanelController multiplayerSettingsPanelController)
         {
-            _uiUtils = uiUtils;
+            _siraLog = siraLog;
             _pluginConfig = pluginConfig;
+            _pluginMetadata = pluginMetadata.Value;
+            _siraSyncService = siraSyncService;
+            _timeTweeningManager = timeTweeningManager;
             _gameplaySetupViewController = gameplaySetupViewController;
             _multiplayerSettingsPanelController = multiplayerSettingsPanelController;
         }
@@ -44,6 +64,17 @@ namespace MultiCode_inator.UI.ViewControllers
         [UIValue("modal-pref-height")] 
         private int ModalPrefHeight => ModalSizeDeltaY - 5;
 
+        [UIValue("update-available")]
+        private bool UpdateAvailable
+        {
+            get => _updateAvailable;
+            set
+            {
+                _updateAvailable = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UpdateAvailable)));
+            }
+        }
+        
         [UIValue("command-enabled")]
         private bool CommandEnabled
         {
@@ -54,7 +85,7 @@ namespace MultiCode_inator.UI.ViewControllers
 
                 if (_multiCodeButtonUnderline != null)
                 {
-                    _uiUtils.TweenMultiCodeButtonUnderlineColor(_multiCodeButtonUnderline, CommandEnabled ? Color.green : Color.red);
+                    TweenMultiCodeButtonUnderlineColor(_multiCodeButtonUnderline, CommandEnabled ? Color.green : Color.red);
                 }
             }
         }
@@ -81,23 +112,34 @@ namespace MultiCode_inator.UI.ViewControllers
             }
         }
         
-        private void ShowModal(Component parentTransform)
+        private async void ShowModal(Component parentTransform)
         {
             if (!_parsed)
             {
                 BSMLParser.instance.Parse(
                     Utilities.GetResourceContent(Assembly.GetExecutingAssembly(),
                         "MultiCode_inator.UI.Views.CommandToggleModalView.bsml"), parentTransform.gameObject, this);
+
+                _parserParams.EmitEvent("close-modal");
+                _parserParams.EmitEvent("open-modal");
+                
+                var gitVersion = await _siraSyncService.LatestVersion();
+                if (gitVersion != null && gitVersion > _pluginMetadata.HVersion)
+                {
+                    var message = $"MultiCode-inator v{gitVersion} is available on GitHub!";
+                    _siraLog.Info(message);
+                    _updateText.text = message;
+                    _updateText.alpha = 0;
+                    UpdateAvailable = true;
+                    _timeTweeningManager.AddTween(new FloatTween(0f, 1f, val => _updateText.alpha = val, 0.4f, EaseType.InCubic), this);
+                }
+                
                 _parsed = true;
+                return;
             }
             
             _parserParams.EmitEvent("close-modal");
             _parserParams.EmitEvent("open-modal");
-        }
-        
-        public void Initialize()
-        {
-            _gameplaySetupViewController.didActivateEvent += GameplaySetupViewControllerOndidActivateEvent;
         }
 
         private void GameplaySetupViewControllerOndidActivateEvent(bool firstactivation, bool addedtohierarchy, bool screensystemenabling)
@@ -126,6 +168,19 @@ namespace MultiCode_inator.UI.ViewControllers
             _multiCodeButtonUnderline.color = CommandEnabled ? Color.green : Color.red;
             
             _multiCodeButton.onClick.AddListener(MultiCodeButtonClicked);
+        }
+
+        private void TweenMultiCodeButtonUnderlineColor(ImageView underline, Color color)
+        {
+            _timeTweeningManager.KillAllTweens(underline);
+            _timeTweeningManager.AddTween(
+                new ColorTween(underline.color, color, value => underline.color = value, 0.4f, EaseType.OutQuad),
+                underline);
+        }
+
+        public void Initialize()
+        {
+            _gameplaySetupViewController.didActivateEvent += GameplaySetupViewControllerOndidActivateEvent;
         }
 
         public void Dispose()

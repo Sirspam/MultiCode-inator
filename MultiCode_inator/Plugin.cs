@@ -14,7 +14,10 @@ namespace MultiCode_inator
         [Init]
         public Plugin(Config conf, Logger logger, Zenjector zenjector)
         {
+            zenjector.UseSiraSync();
             zenjector.UseLogger(logger);
+            zenjector.UseMetadataBinder<Plugin>();
+            
             zenjector.Install<MultiCodeAppInstaller>(Location.App, logger, conf.Generated<PluginConfig>());
             zenjector.Install<MultiCodeMenuInstaller>(Location.Menu);
         }

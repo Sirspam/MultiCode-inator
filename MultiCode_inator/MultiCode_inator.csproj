@@ -35,6 +35,12 @@
         <Reference Include="CatCore">
             <HintPath>$(BeatSaberDir)\Libs\CatCore.dll</HintPath>
         </Reference>
+        <Reference Include="Hive.Versioning">
+          <HintPath>$(BeatSaberDir)\Libs\Hive.Versioning.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.TextMeshPro">
+          <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine.CoreModule">
             <HintPath>$(BeatSaberDir)\Beat Saber_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
             <Private>False</Private>

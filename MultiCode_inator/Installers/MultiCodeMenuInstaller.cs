@@ -8,7 +8,6 @@ namespace MultiCode_inator.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<UIUtils>().AsSingle();
             Container.BindInterfacesTo<CommandToggleViewController>().AsSingle();
         }
     }
