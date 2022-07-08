@@ -12,6 +12,10 @@ namespace MultiCode_inator.Utils
         {
             get
             {
+#if BSP_DEBUG
+                return false;   
+#endif
+
                 _catCoreInstalled ??= PluginManager.GetPluginFromId("CatCore") != null;
                 return (bool) _catCoreInstalled;
             }
@@ -20,6 +24,10 @@ namespace MultiCode_inator.Utils
         {
             get
             {
+#if CATCORE_DEBUG
+                return false;          
+#endif
+                
                 _beatSaberPlusInstalled ??= PluginManager.GetPluginFromId("BeatSaberPlusCORE") != null;
                 return (bool) _beatSaberPlusInstalled;
             }

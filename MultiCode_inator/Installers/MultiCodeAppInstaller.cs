@@ -1,6 +1,8 @@
 ﻿using IPA.Logging;
 using MultiCode_inator.AffinityPatches;
+using MultiCode_inator.Broadcasters;
 using MultiCode_inator.Configuration;
+using MultiCode_inator.Managers;
 using MultiCode_inator.Utils;
 using Zenject;
 
@@ -25,7 +27,7 @@ namespace MultiCode_inator.Installers
             {
                 Container.BindInterfacesTo<MultiplayerLobbyConnectionControllerPatch>().AsSingle();
                 Container.BindInterfacesAndSelfTo<MultiplayerSettingsPanelControllerPatch>().AsSingle();
-
+                
                 if (StaticFields.CatCoreInstalled)
                 {
                     Container.BindInterfacesTo<CatCoreBroadcaster>().AsSingle();
@@ -34,6 +36,8 @@ namespace MultiCode_inator.Installers
                 {
                     Container.BindInterfacesTo<BspBroadcaster>().AsSingle();
                 }
+
+                Container.Bind<BroadcastManager>().AsSingle();
             }
             else
             {

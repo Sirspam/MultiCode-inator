@@ -11,6 +11,8 @@
         <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
         <DebugType>portable</DebugType>
         <RootNamespace>MultiCode_inator</RootNamespace>
+        <Configurations>Debug;Release;CatCore Debug;Bsp Debug</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(DefineConstants.Contains('CIBuild')) OR '$(NCrunch)' == '1'">
