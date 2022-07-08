@@ -1,9 +1,11 @@
 # [MultiCode-inator](https://clips.twitch.tv/WealthyHungryAppleBudStar-kwPAcoffd0CAUzdz)
-Beat Saber mod that adds a !multicode command to your stream which posts the current multiplayer lobby code into your chat
+Beat Saber mod which adds a !mc command to post the current multiplayer lobby code into your stream chat
 ## Usage
-After installation the commands **!multicode** and **!mc** will be added to your twitch chat. When one of these are posted, in your Twitch chat, the code for your current multiplayer lobby will be posted
+After installation the commands **!multicode** and **!mc** will be added to your stream chat. When one of these commands are used in your stream chat, the code for your current multiplayer lobby will be posted
 
-There is a toggle in the multiplayer setup panel which can be used to enable and disable the command.
+MultiCode-inator can also post the current lobby code into your stream chat whenever you join a new multiplayer lobby.
+
+MultiCode-inator's settings are accessible from a button to the right of the server code in the multiplayer setup panel.
 ![MultiplayerSettings.png](MultiplayerSettings.png)
 ## Installation
 [Install](https://bsmg.wiki/pc-modding.html#install-mods) the latest version of [MultiCode-inator](https://github.com/Sirspam/MultiCode-inator/releases/latest) and the dependencies listed below.
