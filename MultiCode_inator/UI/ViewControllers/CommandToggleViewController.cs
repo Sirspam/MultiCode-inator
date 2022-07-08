@@ -37,7 +37,7 @@ namespace MultiCode_inator.UI.ViewControllers
         }
 
         [UIValue("size-delta-y")] 
-        private int ModalSizeDeltaY => DependencyInstalled ? 28 : 55;
+        private int ModalSizeDeltaY => DependencyInstalled ? 34 : 56;
         
         [UIValue("modal-pref-height")] 
         private int ModalPrefHeight => ModalSizeDeltaY - 5;
@@ -55,6 +55,13 @@ namespace MultiCode_inator.UI.ViewControllers
                     _multiCodeButtonUnderline.color = CommandEnabled ? Color.green : Color.red;
                 }
             }
+        }
+
+        [UIValue("post-code-on-lobby-join")]
+        private bool PostCodeOnLobbyJoin
+        {
+            get => StaticFields.DependencyInstalled && _pluginConfig.PostCodeOnLobbyJoin;
+            set => _pluginConfig.PostCodeOnLobbyJoin = value;
         }
 
         [UIValue("dependency-installed")] 

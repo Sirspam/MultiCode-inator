@@ -23,6 +23,9 @@ namespace MultiCode_inator.Installers
             
             if (StaticFields.DependencyInstalled)
             {
+                Container.BindInterfacesTo<MultiplayerLobbyConnectionControllerPatch>().AsSingle();
+                Container.BindInterfacesAndSelfTo<MultiplayerSettingsPanelControllerPatch>().AsSingle();
+
                 if (StaticFields.CatCoreInstalled)
                 {
                     Container.BindInterfacesTo<CatCoreBroadcaster>().AsSingle();
@@ -31,9 +34,6 @@ namespace MultiCode_inator.Installers
                 {
                     Container.BindInterfacesTo<BspBroadcaster>().AsSingle();
                 }
-                
-                Container.BindInterfacesTo<MultiplayerSettingsPanelControllerPatch>().AsSingle();
-                Container.BindInterfacesTo<MultiplayerLobbyConnectionControllerPatch>().AsSingle();
             }
             else
             {

@@ -1,7 +1,8 @@
 ﻿<modal show-event="open-modal" hide-event="close-modal" size-delta-x="70" size-delta-y="~size-delta-y" click-off-closes="true" move-to-center="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd">
     <vertical pref-width="65" pref-height="~modal-pref-height">
         <text text="MultiCode-inator" font-size="7" align="Center"/>
-        <toggle-setting value="command-enabled" text="Enable MultiCode Command" interactable="~dependency-installed" apply-on-change="true" bind-value="true"/>
+        <toggle-setting value="command-enabled" text="Enable MultiCode command" interactable="~dependency-installed" apply-on-change="true" bind-value="true"/>
+        <toggle-setting value="post-code-on-lobby-join" text="Post lobby code when joining" interactable="~dependency-installed" apply-on-change="true" bind-value="true"/>
         <macro.if value="!dependency-installed">
             <text text="~missing-dependency-text" color="red" align="Center" font-size="5" word-wrapping="true"/>
         </macro.if>
