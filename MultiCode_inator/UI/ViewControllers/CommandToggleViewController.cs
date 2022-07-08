@@ -24,13 +24,15 @@ namespace MultiCode_inator.UI.ViewControllers
 
         [UIParams] 
         private readonly BSMLParserParams _parserParams = null!;
-        
+
+        private readonly UIUtils _uiUtils;
         private readonly PluginConfig _pluginConfig;
         private readonly GameplaySetupViewController _gameplaySetupViewController;
         private readonly MultiplayerSettingsPanelController _multiplayerSettingsPanelController;
 
-        public CommandToggleViewController(PluginConfig pluginConfig, GameplaySetupViewController gameplaySetupViewController, MultiplayerSettingsPanelController multiplayerSettingsPanelController)
+        public CommandToggleViewController(UIUtils uiUtils, PluginConfig pluginConfig, GameplaySetupViewController gameplaySetupViewController, MultiplayerSettingsPanelController multiplayerSettingsPanelController)
         {
+            _uiUtils = uiUtils;
             _pluginConfig = pluginConfig;
             _gameplaySetupViewController = gameplaySetupViewController;
             _multiplayerSettingsPanelController = multiplayerSettingsPanelController;
@@ -52,7 +54,7 @@ namespace MultiCode_inator.UI.ViewControllers
 
                 if (_multiCodeButtonUnderline != null)
                 {
-                    _multiCodeButtonUnderline.color = CommandEnabled ? Color.green : Color.red;
+                    _uiUtils.TweenMultiCodeButtonUnderlineColor(_multiCodeButtonUnderline, CommandEnabled ? Color.green : Color.red);
                 }
             }
         }

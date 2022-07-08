@@ -1,4 +1,5 @@
 ﻿using MultiCode_inator.UI.ViewControllers;
+using MultiCode_inator.Utils;
 using Zenject;
 
 namespace MultiCode_inator.Installers
@@ -7,6 +8,7 @@ namespace MultiCode_inator.Installers
     {
         public override void InstallBindings()
         {
+            Container.Bind<UIUtils>().AsSingle();
             Container.BindInterfacesTo<CommandToggleViewController>().AsSingle();
         }
     }
