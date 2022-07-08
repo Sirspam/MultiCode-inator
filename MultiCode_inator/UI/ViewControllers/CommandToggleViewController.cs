@@ -67,7 +67,7 @@ namespace MultiCode_inator.UI.ViewControllers
         }
 
         [UIValue("dependency-installed")] 
-        private bool DependencyInstalled => StaticFields.DependencyInstalled;
+        private static bool DependencyInstalled => StaticFields.DependencyInstalled;
 
         [UIValue("missing-dependency-text")] 
         private string MissingDependencyText => StaticFields.NoDependenciesMessage;
@@ -81,7 +81,7 @@ namespace MultiCode_inator.UI.ViewControllers
             }
         }
         
-        private void ShowModal(Transform parentTransform)
+        private void ShowModal(Component parentTransform)
         {
             if (!_parsed)
             {

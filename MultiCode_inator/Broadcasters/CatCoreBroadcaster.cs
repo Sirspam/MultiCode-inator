@@ -21,6 +21,7 @@ namespace MultiCode_inator.Broadcasters
         {
             get
             {
+                // ReSharper disable once UseNullPropagation
                 if (_chatServiceMultiplexer == null)
                 {
                     return null;
