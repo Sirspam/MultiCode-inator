@@ -18,6 +18,11 @@ namespace MultiCode_inator.AffinityPatches
         private void SetLobbyCodePatch(string code)
         {
             code = code.ToUpper();
+
+            if (code == StaticFields.RoomCode)
+            {
+                return;
+            }
             
             StaticFields.RoomCode = code;
             _broadcastManager.LobbyCodeUpdated(code);
