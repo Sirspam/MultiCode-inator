@@ -7,8 +7,8 @@ namespace MultiCode_inator.Managers
 {
 	internal class BroadcastManager
 	{
-		public event Action<string> RequestBroadcastMessageToAllChannelsEvent = null!;
-		public event Action<object, string> RequestBroadcastResponseMessageEvent = null!;
+		public event Action<string>? RequestBroadcastMessageToAllChannelsEvent;
+		public event Action<object, string>? RequestBroadcastResponseMessageEvent;
 
 		private string? _playerUsername;
 		
@@ -32,11 +32,11 @@ namespace MultiCode_inator.Managers
 				_siraLog.Info("Received MultiCode command");
 				if (_pluginConfig.CommandEnabled && StaticFields.RoomCode != null)
 				{
-					RequestBroadcastResponseMessageEvent.Invoke(channel, $"! {senderUsername}, The current multiplayer lobby code is {StaticFields.RoomCode}");
+					RequestBroadcastResponseMessageEvent?.Invoke(channel, $"! {senderUsername}, The current multiplayer lobby code is {StaticFields.RoomCode}");
 				}
 				else
 				{
-					RequestBroadcastResponseMessageEvent.Invoke(channel, $"! {senderUsername}, The MultiCode command is currently disabled!");
+					RequestBroadcastResponseMessageEvent?.Invoke(channel, $"! {senderUsername}, The MultiCode command is currently disabled!");
 				}
 			}
 		}
@@ -46,7 +46,7 @@ namespace MultiCode_inator.Managers
 			if (_pluginConfig.PostCodeOnLobbyJoin)
 			{
 				_siraLog.Info($"Joined lobby with code: {code}");
-				RequestBroadcastMessageToAllChannelsEvent.Invoke($"{PlayerUsername} has joined lobby {code}");	
+				RequestBroadcastMessageToAllChannelsEvent?.Invoke($"{PlayerUsername} has joined lobby {code}");	
 			}
 		}
 	}
