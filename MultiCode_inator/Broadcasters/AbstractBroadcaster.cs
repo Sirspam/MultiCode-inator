@@ -24,12 +24,9 @@ namespace MultiCode_inator.Broadcasters
 		}
 
 		public virtual void Dispose()
-		{ 
-			// Why compiler throw warning? :(
-#pragma warning disable CS8601
+		{
 			BroadcastManager.RequestBroadcastResponseMessageEvent -= BroadcastResponseMessage;
 			BroadcastManager.RequestBroadcastMessageToAllChannelsEvent -= BroadcastMessageToAllChannels;
-#pragma warning restore CS8601
 		}
 
 		protected abstract void BroadcastResponseMessage(object channel, string message);

@@ -7,8 +7,8 @@ namespace MultiCode_inator.Managers
 {
 	internal class BroadcastManager
 	{
-		public Action<string> RequestBroadcastMessageToAllChannelsEvent = null!;
-		public Action<object, string> RequestBroadcastResponseMessageEvent = null!;
+		public event Action<string> RequestBroadcastMessageToAllChannelsEvent = null!;
+		public event Action<object, string> RequestBroadcastResponseMessageEvent = null!;
 
 		private string? _playerUsername;
 		
