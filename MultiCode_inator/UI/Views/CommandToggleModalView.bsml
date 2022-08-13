@@ -6,7 +6,7 @@
     <vertical pref-width="65" pref-height="~modal-pref-height">
         <vertical spacing="-5">
             <text text="MultiCode-inator" bold="true" font-size="7" align="Center"/>
-            <text text="!multicode | !mc" italics="true" font-size="4" align="Center"/>
+            <text text="!multicode | !mc" italics="true" face-color="silver" font-size="4" align="Center"/>
         </vertical>
         <toggle-setting value="command-enabled" text="Enable MultiCode command" interactable="~dependency-installed" apply-on-change="true" bind-value="true"/>
         <toggle-setting value="post-code-on-lobby-join" text="Post lobby code when joining" interactable="~dependency-installed" apply-on-change="true" bind-value="true"/>
