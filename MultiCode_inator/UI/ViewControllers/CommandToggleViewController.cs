@@ -59,7 +59,7 @@ namespace MultiCode_inator.UI.ViewControllers
         }
 
         [UIValue("size-delta-y")] 
-        private int ModalSizeDeltaY => DependencyInstalled ? 34 : 54;
+        private int ModalSizeDeltaY => DependencyInstalled ? 36 : 54;
         
         [UIValue("modal-pref-height")] 
         private int ModalPrefHeight => ModalSizeDeltaY - 5;
@@ -179,14 +179,8 @@ namespace MultiCode_inator.UI.ViewControllers
                 underline);
         }
 
-        public void Initialize()
-        {
-            _gameplaySetupViewController.didActivateEvent += GameplaySetupViewControllerOndidActivateEvent;
-        }
+        public void Initialize() => _gameplaySetupViewController.didActivateEvent += GameplaySetupViewControllerOndidActivateEvent;
 
-        public void Dispose()
-        {
-            _gameplaySetupViewController.didActivateEvent += GameplaySetupViewControllerOndidActivateEvent;
-        }
+        public void Dispose() => _gameplaySetupViewController.didActivateEvent += GameplaySetupViewControllerOndidActivateEvent;
     }
 }
