@@ -142,10 +142,11 @@ namespace MultiCode_inator.UI.ViewControllers
             _parserParams.EmitEvent("open-modal");
         }
 
-        private void GameplaySetupViewControllerOndidActivateEvent(bool firstactivation, bool addedtohierarchy, bool screensystemenabling)
+        private async void GameplaySetupViewControllerOndidActivateEvent(bool firstactivation, bool addedtohierarchy, bool screensystemenabling)
         {
             _gameplaySetupViewController.didActivateEvent -= GameplaySetupViewControllerOndidActivateEvent;
-            
+
+            await SiraUtil.Extras.Utilities.PauseChamp;
             _serverCodeButton = _multiplayerSettingsPanelController
                 .GetField<ServerCodeView, MultiplayerSettingsPanelController>("_serverCodeView")
                 .GetField<Button, ServerCodeView>("_button");
