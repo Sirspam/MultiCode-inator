@@ -14,7 +14,7 @@ MultiCode-inator's settings are accessible from a button to the right of the ser
 * [BeatSaberMarkupLanguage](https://github.com/monkeymanboy/BeatSaberMarkupLanguage) _- Available in ModAssistant_
 #### Optional Dependencies
 _One of these dependencies must be installed for MultiCode-inator to work_
-* [CatCore](https://github.com/ErisApps/CatCore)
-* [BeatSaberPlus](https://github.com/hardcpp/BeatSaberPlus)
+* [CatCore](https://github.com/ErisApps/CatCore) (1.0.0+) _- Available in ModAssistant_
+* [BeatSaberPlus](https://github.com/hardcpp/BeatSaberPlus) (5.0.0+)
 ## Contribution
 Feel free to point out any suggestions or improvements to me by submitting a PR or contacting me on Discord ([Sirspam#7765](https://discordapp.com/users/232574143818760192)).

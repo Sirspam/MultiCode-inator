@@ -1,6 +1,6 @@
 ﻿using System;
-using BeatSaberPlus.SDK.Chat;
-using BeatSaberPlus.SDK.Chat.Interfaces;
+using CP_SDK.Chat;
+using CP_SDK.Chat.Interfaces;
 using MultiCode_inator.Managers;
 using SiraUtil.Logging;
 

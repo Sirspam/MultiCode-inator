@@ -1,4 +1,5 @@
-﻿using IPA.Loader;
+﻿using Hive.Versioning;
+using IPA.Loader;
 
 namespace MultiCode_inator.Utils
 {
@@ -33,9 +34,18 @@ namespace MultiCode_inator.Utils
 #if CATCORE_DEBUG
                 return false;          
 #endif
-                
-                _beatSaberPlusInstalled ??= PluginManager.GetPluginFromId("BeatSaberPlusCORE") != null;
-                return (bool) _beatSaberPlusInstalled;
+
+	            var hVersion = PluginManager.GetPluginFromId("BeatSaberPlusCORE")?.HVersion;
+	            if (hVersion != null)
+	            {
+		            _beatSaberPlusInstalled ??= hVersion >= new Version("5.0.0");
+	            }
+	            else
+	            {
+		            _beatSaberPlusInstalled ??= false;
+	            }
+
+	            return (bool) _beatSaberPlusInstalled;
             }
         }
         public static readonly bool DependencyInstalled = CatCoreInstalled || BeatSaberPlusInstalled;
