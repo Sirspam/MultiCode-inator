@@ -23,25 +23,28 @@ namespace MultiCode_inator.Installers
         {
             Container.BindInstance(_pluginConfig).AsSingle();
             
-            if (StaticFields.DependencyInstalled)
+            Container.BindInterfacesTo<MultiplayerLobbyConnectionControllerPatch>().AsSingle();
+            Container.BindInterfacesAndSelfTo<MultiplayerSettingsPanelControllerPatch>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ScreenCanvasManager>().AsSingle();
+            
+            if (MultiCodeFields.DependencyInstalled)
             {
-                Container.BindInterfacesTo<MultiplayerLobbyConnectionControllerPatch>().AsSingle();
-                Container.BindInterfacesAndSelfTo<MultiplayerSettingsPanelControllerPatch>().AsSingle();
-                
-                if (StaticFields.CatCoreInstalled)
+                if (MultiCodeFields.CatCoreInstalled)
                 {
+                    _logger.Info($"Using {nameof(CatCoreBroadcaster)}");
                     Container.BindInterfacesTo<CatCoreBroadcaster>().AsSingle();
                 }
-                else if (StaticFields.BeatSaberPlusInstalled)
+                else if (MultiCodeFields.BeatSaberPlusInstalled)
                 {
+                    _logger.Info($"Using {nameof(BspBroadcaster)}");
                     Container.BindInterfacesTo<BspBroadcaster>().AsSingle();
                 }
 
-                Container.Bind<BroadcastManager>().AsSingle();
+                Container.BindInterfacesAndSelfTo<BroadcastManager>().AsSingle();
             }
             else
             {
-                _logger.Warn(StaticFields.NoDependenciesMessage);
+                _logger.Warn(MultiCodeFields.NoDependenciesMessage);
             }
         }
     }

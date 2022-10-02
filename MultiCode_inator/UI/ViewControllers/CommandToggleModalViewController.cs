@@ -22,7 +22,7 @@ using Object = UnityEngine.Object;
 
 namespace MultiCode_inator.UI.ViewControllers
 {
-    internal class CommandToggleViewController : IInitializable, IDisposable, INotifyPropertyChanged
+    internal class CommandToggleModalViewController : IInitializable, IDisposable, INotifyPropertyChanged
     {
         private bool _parsed;
         private bool _updateAvailable;
@@ -47,7 +47,7 @@ namespace MultiCode_inator.UI.ViewControllers
         private readonly GameplaySetupViewController _gameplaySetupViewController;
         private readonly MultiplayerSettingsPanelController _multiplayerSettingsPanelController;
 
-        public CommandToggleViewController(SiraLog siraLog, PluginConfig pluginConfig, UBinder<Plugin, PluginMetadata> pluginMetadata, ISiraSyncService siraSyncService, TimeTweeningManager timeTweeningManager, GameplaySetupViewController gameplaySetupViewController, MultiplayerSettingsPanelController multiplayerSettingsPanelController)
+        public CommandToggleModalViewController(SiraLog siraLog, PluginConfig pluginConfig, UBinder<Plugin, PluginMetadata> pluginMetadata, ISiraSyncService siraSyncService, TimeTweeningManager timeTweeningManager, GameplaySetupViewController gameplaySetupViewController, MultiplayerSettingsPanelController multiplayerSettingsPanelController)
         {
             _siraLog = siraLog;
             _pluginConfig = pluginConfig;
@@ -78,7 +78,7 @@ namespace MultiCode_inator.UI.ViewControllers
         [UIValue("command-enabled")]
         private bool CommandEnabled
         {
-            get => StaticFields.DependencyInstalled && _pluginConfig.CommandEnabled;
+            get => MultiCodeFields.DependencyInstalled && _pluginConfig.CommandEnabled;
             set
             {
                 _pluginConfig.CommandEnabled = value;
@@ -93,15 +93,15 @@ namespace MultiCode_inator.UI.ViewControllers
         [UIValue("post-code-on-lobby-join")]
         private bool PostCodeOnLobbyJoin
         {
-            get => StaticFields.DependencyInstalled && _pluginConfig.PostCodeOnLobbyJoin;
+            get => MultiCodeFields.DependencyInstalled && _pluginConfig.PostCodeOnLobbyJoin;
             set => _pluginConfig.PostCodeOnLobbyJoin = value;
         }
 
         [UIValue("dependency-installed")] 
-        private static bool DependencyInstalled => StaticFields.DependencyInstalled;
+        private static bool DependencyInstalled => MultiCodeFields.DependencyInstalled;
 
         [UIValue("missing-dependency-text")] 
-        private string MissingDependencyText => StaticFields.NoDependenciesMessage;
+        private string MissingDependencyText => MultiCodeFields.NoDependenciesMessage;
 
         [UIAction("multi-code-button-clicked")]
         private void MultiCodeButtonClicked()

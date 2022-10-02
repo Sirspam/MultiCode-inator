@@ -2,10 +2,11 @@
 using MultiCode_inator.Configuration;
 using MultiCode_inator.Utils;
 using SiraUtil.Logging;
+using Zenject;
 
 namespace MultiCode_inator.Managers
 {
-	internal class BroadcastManager
+	internal class BroadcastManager : IInitializable, IDisposable
 	{
 		public event Action<string>? RequestBroadcastMessageToAllChannelsEvent;
 		public event Action<object, string>? RequestBroadcastResponseMessageEvent;
@@ -30,9 +31,9 @@ namespace MultiCode_inator.Managers
 			if (message.ToLower() == "!mc" || message.ToLower() == "!multicode")
 			{
 				_siraLog.Info("Received MultiCode command");
-				if (_pluginConfig.CommandEnabled && StaticFields.RoomCode != null)
+				if (_pluginConfig.CommandEnabled && MultiCodeFields.RoomCode != null)
 				{
-					RequestBroadcastResponseMessageEvent?.Invoke(channel, $"! {senderUsername}, The current multiplayer lobby code is {StaticFields.RoomCode}");
+					RequestBroadcastResponseMessageEvent?.Invoke(channel, $"! {senderUsername}, The current multiplayer lobby code is {MultiCodeFields.RoomCode}");
 				}
 				else
 				{
@@ -41,13 +42,17 @@ namespace MultiCode_inator.Managers
 			}
 		}
 
-		public void LobbyCodeUpdated(string code)
+		private void LobbyCodeUpdated(string? code)
 		{
-			if (_pluginConfig.PostCodeOnLobbyJoin)
+			if (_pluginConfig.PostCodeOnLobbyJoin && code != null)
 			{
 				_siraLog.Info($"Joined lobby with code: {code}");
-				RequestBroadcastMessageToAllChannelsEvent?.Invoke($"{PlayerUsername} has joined lobby {code}");	
+				RequestBroadcastMessageToAllChannelsEvent?.Invoke($"! {PlayerUsername} has joined lobby {code}");	
 			}
 		}
+
+		public void Initialize() => MultiCodeFields.LobbyCodeUpdated += LobbyCodeUpdated;
+
+		public void Dispose() => MultiCodeFields.LobbyCodeUpdated -= LobbyCodeUpdated;
 	}
 }

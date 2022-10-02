@@ -1,14 +1,28 @@
-﻿using Hive.Versioning;
+﻿using System;
 using IPA.Loader;
+using Version = Hive.Versioning.Version;
 
 namespace MultiCode_inator.Utils
 {
-    public static class StaticFields
+    public static class MultiCodeFields
     {
-        private static bool? _catCoreInstalled;
+	    public static event Action<string?>? LobbyCodeUpdated; 
+
+	    private static bool? _catCoreInstalled;
         private static bool? _beatSaberPlusInstalled;
         
-        public static string? RoomCode;
+        private static string? _roomCode;
+
+        public static string? RoomCode
+        {
+	        get => _roomCode;
+	        set
+	        {
+		        _roomCode = value;
+		        LobbyCodeUpdated?.Invoke(value);
+	        }
+        }
+
         public static bool CatCoreInstalled
         {
             get
@@ -24,6 +38,7 @@ namespace MultiCode_inator.Utils
                 return (bool) _catCoreInstalled;
             }
         }
+
         public static bool BeatSaberPlusInstalled
         {
             get
@@ -48,7 +63,8 @@ namespace MultiCode_inator.Utils
 	            return (bool) _beatSaberPlusInstalled;
             }
         }
+
         public static readonly bool DependencyInstalled = CatCoreInstalled || BeatSaberPlusInstalled;
-        public const string NoDependenciesMessage = "Neither CatCore or BeatSaberPlus is installed. MultiCode-inator won't work without one of these mods installed!";
+        public const string NoDependenciesMessage = "Neither CatCore or BeatSaberPlus is installed. MultiCode-inator's chat features won't work without one of these mods installed!";
     }
 }

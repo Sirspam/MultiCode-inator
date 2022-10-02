@@ -1,4 +1,6 @@
-﻿using MultiCode_inator.UI.ViewControllers;
+﻿using MultiCode_inator.Managers;
+using MultiCode_inator.UI.FlowCoordinators;
+using MultiCode_inator.UI.ViewControllers;
 using Zenject;
 
 namespace MultiCode_inator.Installers
@@ -7,7 +9,10 @@ namespace MultiCode_inator.Installers
     {
         public override void InstallBindings()
         {
-            Container.BindInterfacesTo<CommandToggleViewController>().AsSingle();
+            Container.BindInterfacesTo<MenuButtonManager>().AsSingle();
+            Container.Bind<MultiCodeFlowCoordinator>().FromNewComponentOnNewGameObject().AsSingle();
+            Container.Bind<MultiCodeSettingsViewController>().FromNewComponentAsViewController().AsSingle();
+            Container.BindInterfacesTo<CommandToggleModalViewController>().AsSingle();
         }
     }
 }
