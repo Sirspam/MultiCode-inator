@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Reflection;
 using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
@@ -9,13 +8,10 @@ using IPA.Utilities;
 using MultiCode_inator.Configuration;
 using MultiCode_inator.Managers;
 using MultiCode_inator.Utils;
-using SiraUtil.Web.SiraSync;
-using TMPro;
 using Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-using Component = UnityEngine.Component;
 using Object = UnityEngine.Object;
 
 namespace MultiCode_inator.UI.ViewControllers

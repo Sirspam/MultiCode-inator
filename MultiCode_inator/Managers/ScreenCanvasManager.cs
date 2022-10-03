@@ -9,7 +9,6 @@ using Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
-using Color = UnityEngine.Color;
 
 namespace MultiCode_inator.Managers
 {

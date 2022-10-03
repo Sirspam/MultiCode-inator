@@ -1,5 +1,4 @@
-﻿using MultiCode_inator.Managers;
-using MultiCode_inator.Utils;
+﻿using MultiCode_inator.Utils;
 using SiraUtil.Affinity;
 
 namespace MultiCode_inator.AffinityPatches

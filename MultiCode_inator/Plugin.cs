@@ -4,7 +4,6 @@ using IPA.Config.Stores;
 using IPA.Logging;
 using MultiCode_inator.Configuration;
 using MultiCode_inator.Installers;
-using MultiCode_inator.Utils;
 using SiraUtil.Zenject;
 
 namespace MultiCode_inator
