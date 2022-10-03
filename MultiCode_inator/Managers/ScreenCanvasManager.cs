@@ -288,7 +288,6 @@ namespace MultiCode_inator.Managers
 
 			if (_textRectTransform!.localPosition.Equals(newPosition))
 			{
-				_siraLog.Info("returned");
 				return;
 			}
 
