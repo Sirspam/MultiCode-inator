@@ -23,3 +23,4 @@ _One of these broadcasters must be installed for MultiCode-inator's stream comma
 * [BeatSaberPlus](https://github.com/hardcpp/BeatSaberPlus) (5.0.0+)
 ## Contribution
 Feel free to point out any suggestions or improvements to me by submitting a PR or contacting me on Discord ([Sirspam#7765](https://discordapp.com/users/232574143818760192)).
+![MultiCode-inator 1.2.0 gif](MultiCode-inator1.2.0Compressed.gif)
