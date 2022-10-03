@@ -7,9 +7,6 @@ namespace MultiCode_inator.AffinityPatches
     {
         [AffinityPostfix]
         [AffinityPatch(typeof(MultiplayerLobbyConnectionController), nameof(MultiplayerLobbyConnectionController.LeaveLobby))]
-        private void Patch()
-        {
-            StaticFields.RoomCode = null;
-        }
+        private void Patch() => MultiCodeFields.RoomCode = null;
     }
 }
