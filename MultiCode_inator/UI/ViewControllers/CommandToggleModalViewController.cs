@@ -5,13 +5,11 @@ using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Parser;
 using HMUI;
-using IPA.Loader;
 using IPA.Utilities;
 using MultiCode_inator.Configuration;
+using MultiCode_inator.Managers;
 using MultiCode_inator.Utils;
-using SiraUtil.Logging;
 using SiraUtil.Web.SiraSync;
-using SiraUtil.Zenject;
 using TMPro;
 using Tweening;
 using UnityEngine;
@@ -22,12 +20,9 @@ using Object = UnityEngine.Object;
 
 namespace MultiCode_inator.UI.ViewControllers
 {
-    internal class CommandToggleModalViewController : IInitializable, IDisposable, INotifyPropertyChanged
+    internal class CommandToggleModalViewController : IInitializable, IDisposable
     {
         private bool _parsed;
-        private bool _updateAvailable;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
         
         private Button? _multiCodeButton;
         private Button? _serverCodeButton;
@@ -36,42 +31,37 @@ namespace MultiCode_inator.UI.ViewControllers
         [UIParams] 
         private readonly BSMLParserParams _parserParams = null!;
         
-        [UIComponent("update-text")] 
-        private readonly TextMeshProUGUI _updateText = null!;
-        
-        private readonly SiraLog _siraLog;
         private readonly PluginConfig _pluginConfig;
-        private readonly PluginMetadata _pluginMetadata;
-        private readonly ISiraSyncService _siraSyncService;
+        private readonly ScreenCanvasManager _screenCanvasManager;
         private readonly TimeTweeningManager _timeTweeningManager;
         private readonly GameplaySetupViewController _gameplaySetupViewController;
         private readonly MultiplayerSettingsPanelController _multiplayerSettingsPanelController;
 
-        public CommandToggleModalViewController(SiraLog siraLog, PluginConfig pluginConfig, UBinder<Plugin, PluginMetadata> pluginMetadata, ISiraSyncService siraSyncService, TimeTweeningManager timeTweeningManager, GameplaySetupViewController gameplaySetupViewController, MultiplayerSettingsPanelController multiplayerSettingsPanelController)
+        public CommandToggleModalViewController(PluginConfig pluginConfig, ScreenCanvasManager screenCanvasManager, TimeTweeningManager timeTweeningManager, GameplaySetupViewController gameplaySetupViewController, MultiplayerSettingsPanelController multiplayerSettingsPanelController)
         {
-            _siraLog = siraLog;
             _pluginConfig = pluginConfig;
-            _pluginMetadata = pluginMetadata.Value;
-            _siraSyncService = siraSyncService;
+            _screenCanvasManager = screenCanvasManager;
             _timeTweeningManager = timeTweeningManager;
             _gameplaySetupViewController = gameplaySetupViewController;
             _multiplayerSettingsPanelController = multiplayerSettingsPanelController;
         }
 
-        [UIValue("size-delta-y")] 
-        private int ModalSizeDeltaY => DependencyInstalled ? 36 : 54;
-        
-        [UIValue("modal-pref-height")] 
-        private int ModalPrefHeight => ModalSizeDeltaY - 5;
-
-        [UIValue("update-available")]
-        private bool UpdateAvailable
+        [UIValue("on-screen-text-enabled")]
+        private bool OnScreenTextEnabled
         {
-            get => _updateAvailable;
+            get => _pluginConfig.ScreenTextEnabled;
             set
             {
-                _updateAvailable = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(UpdateAvailable)));
+                _pluginConfig.ScreenTextEnabled = value;
+
+                if (value)
+                { 
+                    _screenCanvasManager.ShowText(_pluginConfig.ScreenTextInTransitionAnimation, fade: _pluginConfig.ScreenTextInFade);   
+                }
+                else
+                {
+                    _screenCanvasManager.HideText(_pluginConfig.ScreenTextOutTransitionAnimation, fade: _pluginConfig.ScreenTextOutFade);
+                }
             }
         }
         
@@ -100,9 +90,6 @@ namespace MultiCode_inator.UI.ViewControllers
         [UIValue("dependency-installed")] 
         private static bool DependencyInstalled => MultiCodeFields.DependencyInstalled;
 
-        [UIValue("missing-dependency-text")] 
-        private string MissingDependencyText => MultiCodeFields.NoDependenciesMessage;
-
         [UIAction("multi-code-button-clicked")]
         private void MultiCodeButtonClicked()
         {
@@ -112,30 +99,15 @@ namespace MultiCode_inator.UI.ViewControllers
             }
         }
         
-        private async void ShowModal(Component parentTransform)
+        private void ShowModal(Component parentTransform)
         {
             if (!_parsed)
             {
                 BSMLParser.instance.Parse(
                     Utilities.GetResourceContent(Assembly.GetExecutingAssembly(),
                         "MultiCode_inator.UI.Views.CommandToggleModalView.bsml"), parentTransform.gameObject, this);
-
-                _parserParams.EmitEvent("close-modal");
-                _parserParams.EmitEvent("open-modal");
-                
-                var gitVersion = await _siraSyncService.LatestVersion();
-                if (gitVersion != null && gitVersion > _pluginMetadata.HVersion)
-                {
-                    var message = $"MultiCode-inator v{gitVersion} is available on GitHub!";
-                    _siraLog.Info(message);
-                    _updateText.text = message;
-                    _updateText.alpha = 0;
-                    UpdateAvailable = true;
-                    _timeTweeningManager.AddTween(new FloatTween(0f, 1f, val => _updateText.alpha = val, 0.4f, EaseType.InCubic), this);
-                }
                 
                 _parsed = true;
-                return;
             }
             
             _parserParams.EmitEvent("close-modal");

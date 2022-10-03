@@ -14,5 +14,8 @@
   "loadAfter": [
     "CatCore",
     "BeatSaberPlusCORE"
-  ]
+  ],
+  "links": {
+    "project-home": "https://github.com/Sirspam/MultiCode-inator"
+  }
 }

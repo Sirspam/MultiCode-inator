@@ -65,6 +65,6 @@ namespace MultiCode_inator.Utils
         }
 
         public static readonly bool DependencyInstalled = CatCoreInstalled || BeatSaberPlusInstalled;
-        public const string NoDependenciesMessage = "Neither CatCore or BeatSaberPlus is installed. MultiCode-inator's chat features won't work without one of these mods installed!";
+        public const string NoDependenciesMessage = "None of the optional broadcasters are installed. MultiCode-inator's chat features will work without one installed! Refer to MultiCode-inator's README for a list of supported broadcasters";
     }
 }

@@ -13,6 +13,7 @@ namespace MultiCode_inator.Installers
             Container.Bind<MultiCodeFlowCoordinator>().FromNewComponentOnNewGameObject().AsSingle();
             Container.Bind<MultiCodeSettingsViewController>().FromNewComponentAsViewController().AsSingle();
             Container.BindInterfacesTo<CommandToggleModalViewController>().AsSingle();
+            Container.Bind<GitHubPageModalController>().AsSingle();
         }
     }
 }

@@ -1,0 +1,11 @@
+﻿<bg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd">
+    <modal id="modal" show-event="open-modal" hide-event="close-modal" size-delta-x="50" size-delta-y="30" move-to-center="true">
+        <vertical pad-top="1" pref-width="45">
+            <text text="~modal-text" font-size="6" anchor-max-x="5" align="Center" word-wrapping="true"/>
+            <horizontal>
+                <button text="Yes" on-click="yes-clicked" min-width="18"/>
+                <button text="No" on-click="no-clicked" min-width="18"/>
+            </horizontal>
+        </vertical>
+    </modal>
+</bg>

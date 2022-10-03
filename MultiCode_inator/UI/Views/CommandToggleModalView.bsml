@@ -1,17 +1,11 @@
-﻿<modal show-event="open-modal" hide-event="close-modal" size-delta-x="70" size-delta-y="~size-delta-y" click-off-closes="true" move-to-center="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd">
-    <horizontal ignore-layout="true" anchor-pos-y="20">
-        <text id="update-text" active="~update-available" color="#FFEE00" font-size="3.5" align="Center"/>
-    </horizontal>
-    
-    <vertical pref-width="65" pref-height="~modal-pref-height">
+﻿<modal show-event="open-modal" hide-event="close-modal" size-delta-x="70" size-delta-y="40" click-off-closes="true" move-to-center="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd">
+    <vertical pref-width="65" pref-height="35">
         <vertical spacing="-5">
             <text text="MultiCode-inator" bold="true" font-size="7" align="Center"/>
             <text text="!multicode | !mc" italics="true" face-color="silver" font-size="4" align="Center"/>
         </vertical>
+        <toggle-setting value="on-screen-text-enabled" text="Enable On Screen Text" apply-on-change="true" bind-value="true"/>
         <toggle-setting value="command-enabled" text="Enable MultiCode command" interactable="~dependency-installed" apply-on-change="true" bind-value="true"/>
         <toggle-setting value="post-code-on-lobby-join" text="Post lobby code when joining" interactable="~dependency-installed" apply-on-change="true" bind-value="true"/>
-        <macro.if value="!dependency-installed">
-            <text text="~missing-dependency-text" color="red" align="Center" font-size="5" word-wrapping="true"/>
-        </macro.if>
     </vertical>
 </modal>

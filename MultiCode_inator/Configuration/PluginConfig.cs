@@ -13,7 +13,7 @@ namespace MultiCode_inator.Configuration
     {
         public virtual bool CommandEnabled { get; set; } = true;
         public virtual bool PostCodeOnLobbyJoin { get; set; } = true;
-        public virtual bool ScreenTextEnabled { get; set; } = false;
+        public virtual bool ScreenTextEnabled { get; set; } = true;
         public virtual string ScreenText { get; set; } = "Lobby Code: {code}";
         public virtual int ScreenTextFontSize { get; set; } = 60;
         public virtual Color ScreenTextFontColor { get; set; } = Color.white;

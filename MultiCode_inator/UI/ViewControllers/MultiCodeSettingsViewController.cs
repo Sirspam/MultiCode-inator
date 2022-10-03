@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Parser;
 using BeatSaberMarkupLanguage.ViewControllers;
 using HMUI;
+using IPA.Loader;
 using IPA.Utilities;
 using MultiCode_inator.Configuration;
 using MultiCode_inator.Managers;
+using MultiCode_inator.Utils;
 using SiraUtil.Logging;
+using SiraUtil.Web.SiraSync;
+using SiraUtil.Zenject;
+using TMPro;
+using Tweening;
 using UnityEngine;
 using Zenject;
 
@@ -19,6 +26,7 @@ namespace MultiCode_inator.UI.ViewControllers
 	internal class MultiCodeSettingsViewController : BSMLAutomaticViewController
 	{
 		private bool _modalParsed;
+		private bool _updateAvailable;
 		private bool _previewTransitionButtonState;
 		private ImageView _previewTransitionButtonUnderline = null!;
 		private ScreenCanvasManager.TransitionType _currentModalTransitionType;
@@ -26,19 +34,48 @@ namespace MultiCode_inator.UI.ViewControllers
 		[UIParams] 
 		private readonly BSMLParserParams _parserParams = null!;
 		
+		[UIComponent("update-text")] 
+		private readonly TextMeshProUGUI _updateText = null!;
+		[UIComponent("version-text")] 
+		private readonly CurvedTextMeshPro _versionText = null!;
+		
 		private SiraLog _siraLog = null!;
 		private PluginConfig _pluginConfig = null!;
+		private PluginMetadata _pluginMetadata = null!;
+		private ISiraSyncService _siraSyncService = null!;
 		private ScreenCanvasManager _screenCanvasManager = null!;
+		private TimeTweeningManager _timeTweeningManager = null!;
+		private GitHubPageModalController _gitHubPageModalController = null!;
 
 		[Inject]
-		public void Construct(SiraLog siraLog, PluginConfig pluginConfig, ScreenCanvasManager screenCanvasManager)
+		public void Construct(SiraLog siraLog, PluginConfig pluginConfig, UBinder<Plugin, PluginMetadata> pluginMetadata, ISiraSyncService siraSyncServiceType, ScreenCanvasManager screenCanvasManager, TimeTweeningManager timeTweeningManager, GitHubPageModalController gitHubPageModalController)
 		{
 			_siraLog = siraLog;
 			_pluginConfig = pluginConfig;
+			_pluginMetadata = pluginMetadata.Value;
+			_siraSyncService = siraSyncServiceType;
 			_screenCanvasManager = screenCanvasManager;
+			_timeTweeningManager = timeTweeningManager;
+			_gitHubPageModalController = gitHubPageModalController;
 		}
 
-		[UIValue("screen-text-enabled")]
+		[UIValue("update-available")]
+		private bool UpdateAvailable
+		{
+			get => _updateAvailable;
+			set
+			{
+				_updateAvailable = value;
+				NotifyPropertyChanged();
+			}
+		}
+		
+		[UIValue("version-text-value")]
+		private string VersionText => $"{_pluginMetadata.Name} v{_pluginMetadata.HVersion} by {_pluginMetadata.Author}";
+
+		#region ScreenText
+
+				[UIValue("screen-text-enabled")]
 		private bool ScreenTextEnabled
 		{
 			get => _pluginConfig.ScreenTextEnabled;
@@ -102,6 +139,36 @@ namespace MultiCode_inator.UI.ViewControllers
 		{
 			get => _pluginConfig.ScreenTextPosition.y;
 			set => _pluginConfig.ScreenTextPosition = _screenCanvasManager.SetTextNormalisedPosition(null, value);
+		}
+		
+		[UIAction("change-text-clicked")]
+		private void ChangeTextClicked()
+		{
+			ShowKeyboard();
+		}
+
+		[UIAction("keyboard-entered")]
+		private void KeyboardEntered(string content)
+		{
+			ScreenTextText = content;
+		}
+		
+		[UIAction("in-transition-clicked")]
+		private void InTransitionClicked()
+		{
+			ShowModal(ScreenCanvasManager.TransitionType.In);
+		}
+		
+		[UIAction("out-transition-clicked")]
+		private void OutTransitionClicked()
+		{
+			ShowModal(ScreenCanvasManager.TransitionType.Out);
+		}
+
+		private void ShowKeyboard()
+		{
+			
+			_parserParams.EmitEvent("open-keyboard");
 		}
 
 		#region TransitionModal
@@ -219,34 +286,103 @@ namespace MultiCode_inator.UI.ViewControllers
 
 		#endregion
 
-		[UIAction("change-text-clicked")]
-		private void ChangeTextClicked()
+		#endregion
+
+		#region StreamCommand
+
+		[UIComponent("current-broadcaster")] private TextMeshProUGUI _currentBroadcaster = null!;
+		
+		[UIValue("command-enabled")]
+		private bool CommandEnabled
 		{
-			ShowKeyboard();
+			get => MultiCodeFields.DependencyInstalled && _pluginConfig.CommandEnabled;
+			set => _pluginConfig.CommandEnabled = value;
 		}
 
-		[UIAction("keyboard-entered")]
-		private void KeyboardEntered(string content)
+		[UIValue("post-code-on-lobby-join")]
+		private bool PostCodeOnLobbyJoin
 		{
-			ScreenTextText = content;
-		}
-		
-		[UIAction("in-transition-clicked")]
-		private void InTransitionClicked()
-		{
-			ShowModal(ScreenCanvasManager.TransitionType.In);
-		}
-		
-		[UIAction("out-transition-clicked")]
-		private void OutTransitionClicked()
-		{
-			ShowModal(ScreenCanvasManager.TransitionType.Out);
+			get => MultiCodeFields.DependencyInstalled && _pluginConfig.PostCodeOnLobbyJoin;
+			set => _pluginConfig.PostCodeOnLobbyJoin = value;
 		}
 
-		private void ShowKeyboard()
+		[UIValue("current-broadcaster-text")]
+		private string CurrentBroadcasterText
 		{
+			get
+			{
+				_currentBroadcaster.color = Color.green;
+				
+				if (MultiCodeFields.CatCoreInstalled)
+				{
+					return "CatCore";
+				}
+
+				if (MultiCodeFields.BeatSaberPlusInstalled)
+				{
+					return "BeatSaberPlus";
+				}
+
+				_currentBroadcaster.color = Color.red;
+				return "None";
+			}
+		}
+
+		[UIValue("dependency-installed")] 
+		private static bool DependencyInstalled => MultiCodeFields.DependencyInstalled;
+
+		[UIValue("missing-dependency-text")] 
+		private string MissingDependencyText => MultiCodeFields.NoDependenciesMessage;
+
+		#endregion
+
+		
+		[UIAction("#post-parse")]
+		private async void PostParse()
+		{
+			if (DependencyInstalled)
+			{
+				_currentBroadcaster.color = Color.green;
+				
+				if (MultiCodeFields.CatCoreInstalled)
+				{
+					_currentBroadcaster.text = "CatCore";
+				}
+
+				if (MultiCodeFields.BeatSaberPlusInstalled)
+				{
+					_currentBroadcaster.text = "BeatSaberPlus";
+				}	
+			}
+
+			else
+			{
+				_currentBroadcaster.color = Color.red;
+				_currentBroadcaster.text = "None";	
+			}
+
+			var gitVersion = await _siraSyncService.LatestVersion();
+			if (gitVersion != null && gitVersion > _pluginMetadata.HVersion)
+			{
+				var message = $"MultiCode-inator v{gitVersion} is available on GitHub!";
+				_siraLog.Info(message);
+				_updateText.text = message;
+				_updateText.alpha = 0;
+				UpdateAvailable = true;
+				_timeTweeningManager.AddTween(new FloatTween(0f, 1f, val => _updateText.alpha = val, 0.4f, EaseType.InCubic), this);
+			}
+		}
+		
+		[UIAction("version-text-clicked")]
+		private void VersionTextClicked()
+		{
+			if (_pluginMetadata.PluginHomeLink == null)
+			{
+				return;
+			}
 			
-			_parserParams.EmitEvent("open-keyboard");
+			_gitHubPageModalController.ShowModal(_versionText.transform, _pluginMetadata.Name,
+				_pluginMetadata.PluginHomeLink!.ToString());
 		}
 
 		private void OnEnable()
