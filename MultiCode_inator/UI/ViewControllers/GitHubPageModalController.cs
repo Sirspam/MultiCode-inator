@@ -10,7 +10,7 @@ using Component = UnityEngine.Component;
 namespace MultiCode_inator.UI.ViewControllers
 {
 	// Designed so I can be lazy and copy this across projects
-	internal class GitHubPageModalController
+	internal class GitHubPageModalController : INotifyPropertyChanged
 	{
 		private bool _parsed;
 		private string _modalText = null!;
