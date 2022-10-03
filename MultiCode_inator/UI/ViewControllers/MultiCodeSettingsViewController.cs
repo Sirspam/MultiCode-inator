@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using BeatSaberMarkupLanguage.Attributes;
 using BeatSaberMarkupLanguage.Parser;
 using BeatSaberMarkupLanguage.ViewControllers;
@@ -290,7 +289,7 @@ namespace MultiCode_inator.UI.ViewControllers
 
 		#region StreamCommand
 
-		[UIComponent("current-broadcaster")] private TextMeshProUGUI _currentBroadcaster = null!;
+		[UIComponent("current-broadcaster")] private readonly TextMeshProUGUI _currentBroadcaster = null!;
 		
 		[UIValue("command-enabled")]
 		private bool CommandEnabled
