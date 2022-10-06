@@ -98,7 +98,7 @@ namespace MultiCode_inator.Managers
 			SetTextNormalisedPosition(_pluginConfig.ScreenTextPosition);
 		}
 
-		public void ShowText(TransitionAnimation transitionAnimation = TransitionAnimation.None, float duration = DefaultDuration, bool fade = false, bool loop = false)
+		public void ShowText(TransitionAnimation transitionAnimation = TransitionAnimation.None, bool fade = false, float duration = DefaultDuration, bool loop = false)
 		{
 			CreateText();
 			
@@ -146,7 +146,7 @@ namespace MultiCode_inator.Managers
 			{
 				if (loop)
 				{
-					vector2Tween.onCompleted = () => Task.Run(() => CancellableDelayAsync(() => ShowText(transitionAnimation, duration, fade, loop), (int) Math.Round(duration * 1000 + 500)));
+					vector2Tween.onCompleted = () => Task.Run(() => CancellableDelayAsync(() => ShowText(transitionAnimation, fade, duration, loop), (int) Math.Round(duration * 1000 + 500)));
 				}
 
 				vector2Tween.onKilled = () => SetTextNormalisedPosition(_pluginConfig.ScreenTextPosition);
@@ -159,7 +159,7 @@ namespace MultiCode_inator.Managers
 			}
 		}
 
-		public void HideText(TransitionAnimation transitionAnimation = TransitionAnimation.None, float duration = DefaultDuration, bool fade = false, bool loop = false)
+		public void HideText(TransitionAnimation transitionAnimation = TransitionAnimation.None, bool fade = false, float duration = DefaultDuration, bool loop = false)
 		{
 			CreateText();
 			
@@ -207,7 +207,7 @@ namespace MultiCode_inator.Managers
 			{
 				if (loop)
 				{
-					vector2Tween.onCompleted = () => Task.Run(() => CancellableDelayAsync(() => HideText(transitionAnimation, duration, fade, loop),  (int) Math.Round(duration * 1000 + 500)));
+					vector2Tween.onCompleted = () => Task.Run(() => CancellableDelayAsync(() => HideText(transitionAnimation, fade, duration, loop),  (int) Math.Round(duration * 1000 + 500)));
 				}
 
 				vector2Tween.onKilled = () => SetTextNormalisedPosition(_pluginConfig.ScreenTextPosition);
@@ -346,11 +346,11 @@ namespace MultiCode_inator.Managers
 			if (code != null)
 			{
 				SetText(_pluginConfig.ScreenText);
-				ShowText(_pluginConfig.ScreenTextInTransitionAnimation, fade: _pluginConfig.ScreenTextInFade);
+				ShowText(_pluginConfig.ScreenTextInTransitionAnimation, _pluginConfig.ScreenTextInFade);
 			}
 			else
 			{
-				HideText(_pluginConfig.ScreenTextOutTransitionAnimation, fade: _pluginConfig.ScreenTextOutFade);
+				HideText(_pluginConfig.ScreenTextOutTransitionAnimation, _pluginConfig.ScreenTextOutFade);
 			}
 		}
 

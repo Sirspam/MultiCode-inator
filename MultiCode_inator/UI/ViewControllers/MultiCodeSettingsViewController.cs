@@ -57,7 +57,7 @@ namespace MultiCode_inator.UI.ViewControllers
 			_timeTweeningManager = timeTweeningManager;
 			_gitHubPageModalController = gitHubPageModalController;
 		}
-
+		
 		[UIValue("update-available")]
 		private bool UpdateAvailable
 		{
@@ -71,25 +71,42 @@ namespace MultiCode_inator.UI.ViewControllers
 		
 		[UIValue("version-text-value")]
 		private string VersionText => $"{_pluginMetadata.Name} v{_pluginMetadata.HVersion} by {_pluginMetadata.Author}";
-
+		
 		#region ScreenText
 
-				[UIValue("screen-text-enabled")]
+		[UIValue("screen-text-enabled")]
 		private bool ScreenTextEnabled
 		{
 			get => _pluginConfig.ScreenTextEnabled;
 			set => _pluginConfig.ScreenTextEnabled = value;
 		}
-
-		[UIValue("screen-text-text")]
-		private string ScreenTextText
+		
+		[UIValue("screen-text-string")]
+		private string ScreenTextString
 		{
 			get => _pluginConfig.ScreenText;
 			set
 			{
 				_screenCanvasManager.SetText(value);
 				_pluginConfig.ScreenText = value;
+				NotifyPropertyChanged(nameof(ScreenTextStringLimited));
 				NotifyPropertyChanged();
+			}
+		}
+		
+		[UIValue("screen-text-string-limited")]
+		private string ScreenTextStringLimited
+		{
+			get
+			{
+				var value = _pluginConfig.ScreenText;
+				
+				if (value.Length > 32)
+				{
+					value = value.Substring(0, 32) + "..";
+				}
+
+				return value;
 			}
 		}
 		
@@ -103,7 +120,7 @@ namespace MultiCode_inator.UI.ViewControllers
 				_pluginConfig.ScreenTextFontSize = value;
 			}
 		}
-
+		
 		[UIValue("screen-text-font-color")]
 		private Color ScreenTextFontColor
 		{
@@ -114,7 +131,7 @@ namespace MultiCode_inator.UI.ViewControllers
 				_pluginConfig.ScreenTextFontColor = value;
 			}
 		}
-
+		
 		[UIValue("screen-text-italic-text")]
 		private bool ScreenTextItalicText
 		{
@@ -125,7 +142,7 @@ namespace MultiCode_inator.UI.ViewControllers
 				_pluginConfig.ScreenTextItalicText = value;
 			}
 		}
-
+		
 		[UIValue("screen-text-vertical-position")]
 		private float ScreenTextVerticalPosition
 		{
@@ -149,7 +166,7 @@ namespace MultiCode_inator.UI.ViewControllers
 		[UIAction("keyboard-entered")]
 		private void KeyboardEntered(string content)
 		{
-			ScreenTextText = content;
+			ScreenTextString = content;
 		}
 		
 		[UIAction("in-transition-clicked")]
@@ -230,11 +247,11 @@ namespace MultiCode_inator.UI.ViewControllers
 
 				if (_currentModalTransitionType == ScreenCanvasManager.TransitionType.In)
 				{
-					_screenCanvasManager.ShowText(_pluginConfig.ScreenTextInTransitionAnimation, fade: _pluginConfig.ScreenTextInFade, loop: true);
+					_screenCanvasManager.ShowText(_pluginConfig.ScreenTextInTransitionAnimation, _pluginConfig.ScreenTextInFade, loop: true);
 				}
 				else
 				{
-					_screenCanvasManager.HideText(_pluginConfig.ScreenTextOutTransitionAnimation, fade: _pluginConfig.ScreenTextOutFade, loop: true);
+					_screenCanvasManager.HideText(_pluginConfig.ScreenTextOutTransitionAnimation, _pluginConfig.ScreenTextOutFade, loop: true);
 				}
 				
 			}
@@ -386,12 +403,12 @@ namespace MultiCode_inator.UI.ViewControllers
 
 		private void OnEnable()
 		{
-			_screenCanvasManager.ShowText();
+			_screenCanvasManager.ShowText(_pluginConfig.ScreenTextInTransitionAnimation, _pluginConfig.ScreenTextInFade);
 		}
 
 		private void OnDisable()
 		{
-			_screenCanvasManager.HideText();
+			_screenCanvasManager.HideText(_pluginConfig.ScreenTextOutTransitionAnimation, _pluginConfig.ScreenTextOutFade);
 		}
 	}
 }

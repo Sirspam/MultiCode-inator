@@ -52,11 +52,11 @@ namespace MultiCode_inator.UI.ViewControllers
 
                 if (value)
                 { 
-                    _screenCanvasManager.ShowText(_pluginConfig.ScreenTextInTransitionAnimation, fade: _pluginConfig.ScreenTextInFade);   
+                    _screenCanvasManager.ShowText(_pluginConfig.ScreenTextInTransitionAnimation, _pluginConfig.ScreenTextInFade);   
                 }
                 else
                 {
-                    _screenCanvasManager.HideText(_pluginConfig.ScreenTextOutTransitionAnimation, fade: _pluginConfig.ScreenTextOutFade);
+                    _screenCanvasManager.HideText(_pluginConfig.ScreenTextOutTransitionAnimation, _pluginConfig.ScreenTextOutFade);
                 }
             }
         }

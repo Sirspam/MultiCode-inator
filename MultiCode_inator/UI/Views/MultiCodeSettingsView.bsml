@@ -14,7 +14,7 @@
                 <horizontal>
                     <text text="Text" italics="true" align="MidlineLeft"/>
                     <vertical pref-width="50" bg="round-rect-panel" bg-color="silver">
-                        <text text="~screen-text-text" align="Center"/>
+                        <text text="~screen-text-string-limited" align="Center"/>
                     </vertical>
                     <button text="Change Text" on-click="change-text-clicked"/>
                 </horizontal>
@@ -30,7 +30,7 @@
             </vertical>
         </tab>
 
-        <modal-keyboard show-event="open-keyboard" value="screen-text-text" on-enter="keyboard-entered" move-to-center="true" click-off-closes="true"/>
+        <modal-keyboard show-event="open-keyboard" value="screen-text-string" on-enter="keyboard-entered" move-to-center="true" click-off-closes="true"/>
 
         <modal id="modal-view" show-event="open-modal" size-delta-x="65" size-delta-y="30" click-off-closes="true" move-to-center="true">
             <horizontal horizontal-fit="PreferredSize" pref-width="63.5" anchor-pos-y="20" bg="panel-top-gradient" bg-color="cyan">
