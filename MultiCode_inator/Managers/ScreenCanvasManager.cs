@@ -9,6 +9,7 @@ using Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+using Object = UnityEngine.Object;
 
 namespace MultiCode_inator.Managers
 {
@@ -64,6 +65,7 @@ namespace MultiCode_inator.Managers
 			{
 				name = "MultiCodeTextCanvas"
 			};
+			Object.DontDestroyOnLoad(_canvasGameObject.gameObject);
 
 			var canvas = _canvasGameObject.AddComponent<Canvas>();
 			canvas.renderMode = RenderMode.ScreenSpaceOverlay;
