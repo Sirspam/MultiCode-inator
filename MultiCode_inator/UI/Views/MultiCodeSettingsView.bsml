@@ -1,4 +1,4 @@
-﻿<bg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/monkeymanboy/BSML-Docs/gh-pages/BSMLSchema.xsd">
+﻿<bg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://monkeymanboy.github.io/BSML-Docs/BSMLSchema.xsd">
     <vertical anchor-pos-y="18">
         <horizontal ignore-layout="true" anchor-pos-y="35">
             <text id="update-text" active="~update-available" color="#FFEE00" font-size="3.5" align="Center"/>
@@ -18,11 +18,11 @@
                     </vertical>
                     <button text="Change Text" on-click="change-text-clicked"/>
                 </horizontal>
-                <slider-setting text="Font Size" value="screen-text-font-size" min="20" max="180" increment="2" integer-only="true" apply-on-change="true" bind-value="true"/>
+                <slider-setting text="Font Size" value="screen-text-font-size" min="20" max="180" increment="1" integer-only="true" show-buttons="true" apply-on-change="true" bind-value="true"/>
                 <color-setting text="Font Color" value="screen-text-font-color" apply-on-change="true" bind-value="true"/>
                 <checkbox-setting text="Italic Text" value="screen-text-italic-text" apply-on-change="true" bind-value="true"/>
-                <slider-setting text="Vertical Position" value="screen-text-vertical-position" increment="0.02" max="1" apply-on-change="true" bind-value="true"/>
-                <slider-setting text="Horizontal Position" value="screen-text-horizontal-position" increment="0.02" max="1" apply-on-change="true" bind-value="true"/>
+                <slider-setting text="Vertical Position" value="screen-text-vertical-position" increment="0.01" max="1" show-buttons="true" apply-on-change="true" bind-value="true"/>
+                <slider-setting text="Horizontal Position" value="screen-text-horizontal-position" increment="0.01" max="1" show-buttons="true" apply-on-change="true" bind-value="true"/>
                 <horizontal>
                     <button text="In Transition" on-click="in-transition-clicked" pref-width="40" pref-height="8"/>
                     <button text="Out Transition" on-click="out-transition-clicked" pref-width="40" pref-height="8"/>
@@ -52,7 +52,7 @@
                     <text id="current-broadcaster" align="Center" font-size="7"/>
                 </horizontal>
                 <macro.if value="!dependency-installed">
-                    <text text="~missing-dependency-text" color="maroon" align="Center" font-size="5" word-wrapping="true"/>
+                    <text text="~missing-dependency-text" color="maroon" align="Center" font-size="5" word-wrapping="true" rich-text="true"/>
                 </macro.if>
             </vertical>
         </tab>
