@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using MultiCode_inator.Configuration;
 using MultiCode_inator.Utils;
 using SiraUtil.Logging;
@@ -24,21 +25,21 @@ namespace MultiCode_inator.Managers
 			_platformUserModel = platformUserModel;
 		}
 
-		private string PlayerUsername => _playerUsername ??= _platformUserModel.GetUserInfo().Result.userName;
+		private string PlayerUsername => _playerUsername ??= _platformUserModel.GetUserInfo(CancellationToken.None).Result.userName;
 
 		public void ReceivedMessage(object channel, string message, string senderUsername)
 		{
-			if (message.ToLower() == "!mc" || message.ToLower() == "!multicode")
+			if (message.ToLower() != "!mc" && message.ToLower() != "!multicode") 
+				return;
+			
+			_siraLog.Info("Received MultiCode command");
+			if (_pluginConfig.CommandEnabled && MultiCodeFields.RoomCode != null)
 			{
-				_siraLog.Info("Received MultiCode command");
-				if (_pluginConfig.CommandEnabled && MultiCodeFields.RoomCode != null)
-				{
-					RequestBroadcastResponseMessageEvent?.Invoke(channel, $"! {senderUsername}, The current multiplayer lobby code is {MultiCodeFields.RoomCode}");
-				}
-				else
-				{
-					RequestBroadcastResponseMessageEvent?.Invoke(channel, $"! {senderUsername}, The MultiCode command is currently disabled!");
-				}
+				RequestBroadcastResponseMessageEvent?.Invoke(channel, $"! {senderUsername}, The current multiplayer lobby code is {MultiCodeFields.RoomCode}");
+			}
+			else
+			{
+				RequestBroadcastResponseMessageEvent?.Invoke(channel, $"! {senderUsername}, The MultiCode command is currently disabled!");
 			}
 		}
 

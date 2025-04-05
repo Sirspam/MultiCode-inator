@@ -49,17 +49,7 @@ namespace MultiCode_inator.Utils
 #if CATCORE_DEBUG
                 return false;          
 #endif
-
-	            var hVersion = PluginManager.GetPluginFromId("BeatSaberPlusCORE")?.HVersion;
-	            if (hVersion != null)
-	            {
-		            _beatSaberPlusInstalled ??= hVersion >= new Version("5.0.0");
-	            }
-	            else
-	            {
-		            _beatSaberPlusInstalled ??= false;
-	            }
-
+	            _beatSaberPlusInstalled ??= PluginManager.GetPluginFromId("ChatPlexSDK_BS") != null;
 	            return (bool) _beatSaberPlusInstalled;
             }
         }

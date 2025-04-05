@@ -38,7 +38,7 @@ namespace MultiCode_inator.UI.ViewControllers
 			if (!_parsed)
 			{
 				var executingAssembly = Assembly.GetExecutingAssembly();
-				BSMLParser.instance.Parse(Utilities.GetResourceContent(executingAssembly, $"{executingAssembly.GetName().Name}.UI.Views.GitHubPageModalView.bsml"), parentTransform.gameObject, this);
+				BSMLParser.Instance.Parse(Utilities.GetResourceContent(executingAssembly, $"{executingAssembly.GetName().Name}.UI.Views.GitHubPageModalView.bsml"), parentTransform.gameObject, this);
 				ModalText = $"Open {pluginName}'s GitHub Page?"; // Might be a bit silly to set the text like this but it felt odd having the version text get everything from the manifest while the modal was static
 				_githubPath = githubPath;
 				_modalView.name = $"{pluginName}GitHubModal";				

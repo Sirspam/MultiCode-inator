@@ -99,7 +99,7 @@ namespace MultiCode_inator.UI.ViewControllers
         {
             if (!_parsed)
             {
-                BSMLParser.instance.Parse(
+                BSMLParser.Instance.Parse(
                     Utilities.GetResourceContent(Assembly.GetExecutingAssembly(),
                         "MultiCode_inator.UI.Views.CommandToggleModalView.bsml"), parentTransform.gameObject, this);
                 
