@@ -43,6 +43,11 @@ namespace MultiCode_inator.Managers
 			}
 		}
 
+		public void RequestBroadcastMessageToAllChannels(string message)
+		{
+			RequestBroadcastMessageToAllChannelsEvent?.Invoke(message);
+		}
+
 		private void LobbyCodeUpdated(string? code)
 		{
 			if (_pluginConfig.PostCodeOnLobbyJoin && code != null)

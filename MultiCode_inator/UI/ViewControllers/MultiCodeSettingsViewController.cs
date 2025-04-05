@@ -17,6 +17,7 @@ using TMPro;
 using Tweening;
 using UnityEngine;
 using Zenject;
+using Random = System.Random;
 
 namespace MultiCode_inator.UI.ViewControllers
 {
@@ -42,17 +43,19 @@ namespace MultiCode_inator.UI.ViewControllers
 		private PluginConfig _pluginConfig = null!;
 		private PluginMetadata _pluginMetadata = null!;
 		private ISiraSyncService _siraSyncService = null!;
+		private BroadcastManager _broadcastManager = null!;
 		private ScreenCanvasManager _screenCanvasManager = null!;
 		private TimeTweeningManager _timeTweeningManager = null!;
 		private GitHubPageModalController _gitHubPageModalController = null!;
 
 		[Inject]
-		public void Construct(SiraLog siraLog, PluginConfig pluginConfig, UBinder<Plugin, PluginMetadata> pluginMetadata, ISiraSyncService siraSyncServiceType, ScreenCanvasManager screenCanvasManager, TimeTweeningManager timeTweeningManager, GitHubPageModalController gitHubPageModalController)
+		public void Construct(SiraLog siraLog, PluginConfig pluginConfig, UBinder<Plugin, PluginMetadata> pluginMetadata, ISiraSyncService siraSyncServiceType, BroadcastManager broadcastManager, ScreenCanvasManager screenCanvasManager, TimeTweeningManager timeTweeningManager, GitHubPageModalController gitHubPageModalController)
 		{
 			_siraLog = siraLog;
 			_pluginConfig = pluginConfig;
 			_pluginMetadata = pluginMetadata.Value;
 			_siraSyncService = siraSyncServiceType;
+			_broadcastManager = broadcastManager;
 			_screenCanvasManager = screenCanvasManager;
 			_timeTweeningManager = timeTweeningManager;
 			_gitHubPageModalController = gitHubPageModalController;
@@ -349,9 +352,16 @@ namespace MultiCode_inator.UI.ViewControllers
 
 		[UIValue("missing-dependency-text")] 
 		private string MissingDependencyText => MultiCodeFields.NoDependenciesMessage;
+		
+		[UIAction("send-test-message-clicked")]
+		private void SendTestMessageClicked()
+		{
+			var theFunny = new Random().Next(5) == 0;
+			var result = theFunny ? "I smell!" : "This is a test message!";
+			_broadcastManager.RequestBroadcastMessageToAllChannels(result);
+		}
 
 		#endregion
-
 		
 		[UIAction("#post-parse")]
 		private async void PostParse()
@@ -364,8 +374,7 @@ namespace MultiCode_inator.UI.ViewControllers
 				{
 					_currentBroadcaster.text = "CatCore";
 				}
-
-				if (MultiCodeFields.BeatSaberPlusInstalled)
+				else if (MultiCodeFields.BeatSaberPlusInstalled)
 				{
 					_currentBroadcaster.text = "BeatSaberPlus";
 				}	

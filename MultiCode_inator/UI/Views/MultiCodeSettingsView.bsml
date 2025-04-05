@@ -47,6 +47,7 @@
             <vertical pref-width="100" horizontal-fit="PreferredSize" vertical-fit="PreferredSize" pad="3" background="round-rect-panel" background-color="#FFFFFFAA">
                 <toggle-setting value="command-enabled" text="Enable MultiCode command" interactable="~dependency-installed" apply-on-change="true" bind-value="true"/>
                 <toggle-setting value="post-code-on-lobby-join" text="Post lobby code when joining" interactable="~dependency-installed" apply-on-change="true" bind-value="true"/>
+                <button text="Send Test Message" on-click="send-test-message-clicked" interactable="~dependency-installed" pref-width="40" pref-height="8"/>
                 <horizontal pad-top="1">
                     <text text="Current Broadcaster:" align="Left" font-size="7"/>
                     <text id="current-broadcaster" align="Center" font-size="7"/>
