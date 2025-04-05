@@ -3,7 +3,7 @@
   "id": "MultiCode-inator",
   "name": "MultiCode-inator",
   "author": "Sirspam",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "Beat Saber mod which adds on screen text and a stream command for your multiplayer lobby code",
   "gameVersion": "1.39.1",
   "dependsOn": {
