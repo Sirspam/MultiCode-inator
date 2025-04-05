@@ -15,10 +15,10 @@ namespace MultiCode_inator.Configuration
         public virtual bool PostCodeOnLobbyJoin { get; set; } = true;
         public virtual bool ScreenTextEnabled { get; set; } = true;
         public virtual string ScreenText { get; set; } = "Lobby Code: {code}";
-        public virtual int ScreenTextFontSize { get; set; } = 60;
+        public virtual int ScreenTextFontSize { get; set; } = 90;
         public virtual Color ScreenTextFontColor { get; set; } = Color.white;
         public virtual bool ScreenTextItalicText { get; set; } = true;
-        public virtual Vector2 ScreenTextPosition { get; set; } = new Vector2(0.5f, 0f);
+        public virtual Vector2 ScreenTextPosition { get; set; } = new Vector2(0.5f, 0.01f);
         [UseConverter(typeof(EnumConverter<ScreenCanvasManager.TransitionAnimation>))]
         public virtual ScreenCanvasManager.TransitionAnimation ScreenTextInTransitionAnimation { get; set; } = ScreenCanvasManager.TransitionAnimation.SlideDown;
 
